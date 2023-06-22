@@ -11,10 +11,11 @@ street = pygame.image.load("imgs/street.png")
 width, height = street.get_width(), street.get_height()
 gameDisplay = pygame.display.set_mode((width, height))
 
-car_up = scale_image(pygame.image.load("imgs/car_up.png"), 0.45)
-car_down = scale_image(pygame.image.load("imgs/car_down.png"), 0.45)
-car_left = scale_image(pygame.image.load("imgs/car_left.png"), 0.45)
-car_right = scale_image(pygame.image.load("imgs/car_right.png"), 0.45)
+car = scale_image(pygame.image.load("imgs/car.png"), 0.45)
+# car_up = scale_image(pygame.image.load("imgs/car_up.png"), 0.45)
+# car_down = scale_image(pygame.image.load("imgs/car_down.png"), 0.45)
+# car_left = scale_image(pygame.image.load("imgs/car_left.png"), 0.45)
+# car_right = scale_image(pygame.image.load("imgs/car_right.png"), 0.45)
 
 # car_down = car_up
 # car_down = pygame.transform.rotate(car_down, 180)
@@ -24,7 +25,7 @@ car_right = scale_image(pygame.image.load("imgs/car_right.png"), 0.45)
 # car_right = pygame.transform.rotate(car_right, -90)
 
 poss_start = [(279,413), (159,8), (414, 159), (8, 279)]
-car_start = [(car_up, poss_start[0]), (car_down, poss_start[1]), (car_left, poss_start[2]), (car_right, poss_start[3])]
+# car_start = [(car_up, poss_start[0]), (car_down, poss_start[1]), (car_left, poss_start[2]), (car_right, poss_start[3])]
 
 class AbstractCar:
     def __init__(self, max_vel, rotation_vel):
@@ -73,7 +74,7 @@ class Car(AbstractCar):
     # img = car_new[0]
     # start_pos = car_new[1]
     
-    img = car_left
+    img = car
     # blit_rotate_center(gameDisplay, img, (415, 175), 90)
     start_pos = poss_start[2]
     

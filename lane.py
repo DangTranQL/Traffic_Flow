@@ -6,6 +6,7 @@ import random
 from utils import *
 from car import *
 from path_tracking import *
+from itertools import chain
 
 pygame.font.init()
 
@@ -46,7 +47,9 @@ run = True
 
 images = [(street, (0,0))]
 game_info = GameInfo()
-path = State('straight')[2]
+path = list(chain(*State('straight')))
+print(path)
+path.extend(State('straight')[3])
 car = Car(1,4,path)
 
 while run:
