@@ -47,7 +47,7 @@ run = True
 images = [(street, (0,0))]
 game_info = GameInfo()
 path = State('straight')[2]
-car = Car(1,4)
+car = Car(1,4,path)
 
 while run:
     clock.tick(fps)
