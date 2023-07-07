@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "/home/renan/limo_ws/devel/share/gennodejs/ros/summer_project/msg/limo_info.js"
+  "/home/renan/limo_ws/devel/share/gennodejs/ros/summer_project/msg/limo_info_array.js"
   "CMakeFiles/summer_project_generate_messages_nodejs"
 )
 

@@ -20,9 +20,10 @@ class limo_info {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.ID = null;
-      this.pose = null;
+      this.x = null;
+      this.y = null;
       this.vel = null;
-      this.accel = null;
+      this.acc = null;
     }
     else {
       if (initObj.hasOwnProperty('ID')) {
@@ -31,11 +32,17 @@ class limo_info {
       else {
         this.ID = new std_msgs.msg.Int64();
       }
-      if (initObj.hasOwnProperty('pose')) {
-        this.pose = initObj.pose
+      if (initObj.hasOwnProperty('x')) {
+        this.x = initObj.x
       }
       else {
-        this.pose = new std_msgs.msg.Float64MultiArray();
+        this.x = new std_msgs.msg.Float64();
+      }
+      if (initObj.hasOwnProperty('y')) {
+        this.y = initObj.y
+      }
+      else {
+        this.y = new std_msgs.msg.Float64();
       }
       if (initObj.hasOwnProperty('vel')) {
         this.vel = initObj.vel
@@ -43,11 +50,11 @@ class limo_info {
       else {
         this.vel = new std_msgs.msg.Float64();
       }
-      if (initObj.hasOwnProperty('accel')) {
-        this.accel = initObj.accel
+      if (initObj.hasOwnProperty('acc')) {
+        this.acc = initObj.acc
       }
       else {
-        this.accel = new std_msgs.msg.Float64();
+        this.acc = new std_msgs.msg.Float64();
       }
     }
   }
@@ -56,12 +63,14 @@ class limo_info {
     // Serializes a message object of type limo_info
     // Serialize message field [ID]
     bufferOffset = std_msgs.msg.Int64.serialize(obj.ID, buffer, bufferOffset);
-    // Serialize message field [pose]
-    bufferOffset = std_msgs.msg.Float64MultiArray.serialize(obj.pose, buffer, bufferOffset);
+    // Serialize message field [x]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.x, buffer, bufferOffset);
+    // Serialize message field [y]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.y, buffer, bufferOffset);
     // Serialize message field [vel]
     bufferOffset = std_msgs.msg.Float64.serialize(obj.vel, buffer, bufferOffset);
-    // Serialize message field [accel]
-    bufferOffset = std_msgs.msg.Float64.serialize(obj.accel, buffer, bufferOffset);
+    // Serialize message field [acc]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.acc, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -71,19 +80,19 @@ class limo_info {
     let data = new limo_info(null);
     // Deserialize message field [ID]
     data.ID = std_msgs.msg.Int64.deserialize(buffer, bufferOffset);
-    // Deserialize message field [pose]
-    data.pose = std_msgs.msg.Float64MultiArray.deserialize(buffer, bufferOffset);
+    // Deserialize message field [x]
+    data.x = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [y]
+    data.y = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     // Deserialize message field [vel]
     data.vel = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
-    // Deserialize message field [accel]
-    data.accel = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [acc]
+    data.acc = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    let length = 0;
-    length += std_msgs.msg.Float64MultiArray.getMessageSize(object.pose);
-    return length + 24;
+    return 40;
   }
 
   static datatype() {
@@ -93,63 +102,21 @@ class limo_info {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '68fc7bffa679ec42e202fe8ddecc03a6';
+    return '326e2462ad523a29cf0e1a6ca744aac8';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     std_msgs/Int64 ID
-    std_msgs/Float64MultiArray pose
+    std_msgs/Float64 x
+    std_msgs/Float64 y
     std_msgs/Float64 vel
-    std_msgs/Float64 accel
+    std_msgs/Float64 acc
     
     ================================================================================
     MSG: std_msgs/Int64
     int64 data
-    ================================================================================
-    MSG: std_msgs/Float64MultiArray
-    # Please look at the MultiArrayLayout message definition for
-    # documentation on all multiarrays.
-    
-    MultiArrayLayout  layout        # specification of data layout
-    float64[]         data          # array of data
-    
-    
-    ================================================================================
-    MSG: std_msgs/MultiArrayLayout
-    # The multiarray declares a generic multi-dimensional array of a
-    # particular data type.  Dimensions are ordered from outer most
-    # to inner most.
-    
-    MultiArrayDimension[] dim # Array of dimension properties
-    uint32 data_offset        # padding elements at front of data
-    
-    # Accessors should ALWAYS be written in terms of dimension stride
-    # and specified outer-most dimension first.
-    # 
-    # multiarray(i,j,k) = data[data_offset + dim_stride[1]*i + dim_stride[2]*j + k]
-    #
-    # A standard, 3-channel 640x480 image with interleaved color channels
-    # would be specified as:
-    #
-    # dim[0].label  = "height"
-    # dim[0].size   = 480
-    # dim[0].stride = 3*640*480 = 921600  (note dim[0] stride is just size of image)
-    # dim[1].label  = "width"
-    # dim[1].size   = 640
-    # dim[1].stride = 3*640 = 1920
-    # dim[2].label  = "channel"
-    # dim[2].size   = 3
-    # dim[2].stride = 3
-    #
-    # multiarray(i,j,k) refers to the ith row, jth column, and kth channel.
-    
-    ================================================================================
-    MSG: std_msgs/MultiArrayDimension
-    string label   # label of given dimension
-    uint32 size    # size of given dimension (in type units)
-    uint32 stride  # stride of given dimension
     ================================================================================
     MSG: std_msgs/Float64
     float64 data
@@ -169,11 +136,18 @@ class limo_info {
       resolved.ID = new std_msgs.msg.Int64()
     }
 
-    if (msg.pose !== undefined) {
-      resolved.pose = std_msgs.msg.Float64MultiArray.Resolve(msg.pose)
+    if (msg.x !== undefined) {
+      resolved.x = std_msgs.msg.Float64.Resolve(msg.x)
     }
     else {
-      resolved.pose = new std_msgs.msg.Float64MultiArray()
+      resolved.x = new std_msgs.msg.Float64()
+    }
+
+    if (msg.y !== undefined) {
+      resolved.y = std_msgs.msg.Float64.Resolve(msg.y)
+    }
+    else {
+      resolved.y = new std_msgs.msg.Float64()
     }
 
     if (msg.vel !== undefined) {
@@ -183,11 +157,11 @@ class limo_info {
       resolved.vel = new std_msgs.msg.Float64()
     }
 
-    if (msg.accel !== undefined) {
-      resolved.accel = std_msgs.msg.Float64.Resolve(msg.accel)
+    if (msg.acc !== undefined) {
+      resolved.acc = std_msgs.msg.Float64.Resolve(msg.acc)
     }
     else {
-      resolved.accel = new std_msgs.msg.Float64()
+      resolved.acc = new std_msgs.msg.Float64()
     }
 
     return resolved;

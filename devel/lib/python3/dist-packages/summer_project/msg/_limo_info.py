@@ -9,65 +9,23 @@ import struct
 import std_msgs.msg
 
 class limo_info(genpy.Message):
-  _md5sum = "68fc7bffa679ec42e202fe8ddecc03a6"
+  _md5sum = "326e2462ad523a29cf0e1a6ca744aac8"
   _type = "summer_project/limo_info"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """std_msgs/Int64 ID
-std_msgs/Float64MultiArray pose
+std_msgs/Float64 x
+std_msgs/Float64 y
 std_msgs/Float64 vel
-std_msgs/Float64 accel
+std_msgs/Float64 acc
 
 ================================================================================
 MSG: std_msgs/Int64
 int64 data
 ================================================================================
-MSG: std_msgs/Float64MultiArray
-# Please look at the MultiArrayLayout message definition for
-# documentation on all multiarrays.
-
-MultiArrayLayout  layout        # specification of data layout
-float64[]         data          # array of data
-
-
-================================================================================
-MSG: std_msgs/MultiArrayLayout
-# The multiarray declares a generic multi-dimensional array of a
-# particular data type.  Dimensions are ordered from outer most
-# to inner most.
-
-MultiArrayDimension[] dim # Array of dimension properties
-uint32 data_offset        # padding elements at front of data
-
-# Accessors should ALWAYS be written in terms of dimension stride
-# and specified outer-most dimension first.
-# 
-# multiarray(i,j,k) = data[data_offset + dim_stride[1]*i + dim_stride[2]*j + k]
-#
-# A standard, 3-channel 640x480 image with interleaved color channels
-# would be specified as:
-#
-# dim[0].label  = "height"
-# dim[0].size   = 480
-# dim[0].stride = 3*640*480 = 921600  (note dim[0] stride is just size of image)
-# dim[1].label  = "width"
-# dim[1].size   = 640
-# dim[1].stride = 3*640 = 1920
-# dim[2].label  = "channel"
-# dim[2].size   = 3
-# dim[2].stride = 3
-#
-# multiarray(i,j,k) refers to the ith row, jth column, and kth channel.
-
-================================================================================
-MSG: std_msgs/MultiArrayDimension
-string label   # label of given dimension
-uint32 size    # size of given dimension (in type units)
-uint32 stride  # stride of given dimension
-================================================================================
 MSG: std_msgs/Float64
 float64 data"""
-  __slots__ = ['ID','pose','vel','accel']
-  _slot_types = ['std_msgs/Int64','std_msgs/Float64MultiArray','std_msgs/Float64','std_msgs/Float64']
+  __slots__ = ['ID','x','y','vel','acc']
+  _slot_types = ['std_msgs/Int64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -77,7 +35,7 @@ float64 data"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       ID,pose,vel,accel
+       ID,x,y,vel,acc
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -88,17 +46,20 @@ float64 data"""
       # message fields cannot be None, assign default values for those that are
       if self.ID is None:
         self.ID = std_msgs.msg.Int64()
-      if self.pose is None:
-        self.pose = std_msgs.msg.Float64MultiArray()
+      if self.x is None:
+        self.x = std_msgs.msg.Float64()
+      if self.y is None:
+        self.y = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
-      if self.accel is None:
-        self.accel = std_msgs.msg.Float64()
+      if self.acc is None:
+        self.acc = std_msgs.msg.Float64()
     else:
       self.ID = std_msgs.msg.Int64()
-      self.pose = std_msgs.msg.Float64MultiArray()
+      self.x = std_msgs.msg.Float64()
+      self.y = std_msgs.msg.Float64()
       self.vel = std_msgs.msg.Float64()
-      self.accel = std_msgs.msg.Float64()
+      self.acc = std_msgs.msg.Float64()
 
   def _get_types(self):
     """
@@ -112,27 +73,8 @@ float64 data"""
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.ID.data
-      buff.write(_get_struct_q().pack(_x))
-      length = len(self.pose.layout.dim)
-      buff.write(_struct_I.pack(length))
-      for val1 in self.pose.layout.dim:
-        _x = val1.label
-        length = len(_x)
-        if python3 or type(_x) == unicode:
-          _x = _x.encode('utf-8')
-          length = len(_x)
-        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-        _x = val1
-        buff.write(_get_struct_2I().pack(_x.size, _x.stride))
-      _x = self.pose.layout.data_offset
-      buff.write(_get_struct_I().pack(_x))
-      length = len(self.pose.data)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sd'%length
-      buff.write(struct.Struct(pattern).pack(*self.pose.data))
       _x = self
-      buff.write(_get_struct_2d().pack(_x.vel.data, _x.accel.data))
+      buff.write(_get_struct_q4d().pack(_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -146,51 +88,19 @@ float64 data"""
     try:
       if self.ID is None:
         self.ID = std_msgs.msg.Int64()
-      if self.pose is None:
-        self.pose = std_msgs.msg.Float64MultiArray()
+      if self.x is None:
+        self.x = std_msgs.msg.Float64()
+      if self.y is None:
+        self.y = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
-      if self.accel is None:
-        self.accel = std_msgs.msg.Float64()
+      if self.acc is None:
+        self.acc = std_msgs.msg.Float64()
       end = 0
-      start = end
-      end += 8
-      (self.ID.data,) = _get_struct_q().unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      self.pose.layout.dim = []
-      for i in range(0, length):
-        val1 = std_msgs.msg.MultiArrayDimension()
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        if python3:
-          val1.label = str[start:end].decode('utf-8', 'rosmsg')
-        else:
-          val1.label = str[start:end]
-        _x = val1
-        start = end
-        end += 8
-        (_x.size, _x.stride,) = _get_struct_2I().unpack(str[start:end])
-        self.pose.layout.dim.append(val1)
-      start = end
-      end += 4
-      (self.pose.layout.data_offset,) = _get_struct_I().unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sd'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.pose.data = s.unpack(str[start:end])
       _x = self
       start = end
-      end += 16
-      (_x.vel.data, _x.accel.data,) = _get_struct_2d().unpack(str[start:end])
+      end += 40
+      (_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data,) = _get_struct_q4d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -203,27 +113,8 @@ float64 data"""
     :param numpy: numpy python module
     """
     try:
-      _x = self.ID.data
-      buff.write(_get_struct_q().pack(_x))
-      length = len(self.pose.layout.dim)
-      buff.write(_struct_I.pack(length))
-      for val1 in self.pose.layout.dim:
-        _x = val1.label
-        length = len(_x)
-        if python3 or type(_x) == unicode:
-          _x = _x.encode('utf-8')
-          length = len(_x)
-        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
-        _x = val1
-        buff.write(_get_struct_2I().pack(_x.size, _x.stride))
-      _x = self.pose.layout.data_offset
-      buff.write(_get_struct_I().pack(_x))
-      length = len(self.pose.data)
-      buff.write(_struct_I.pack(length))
-      pattern = '<%sd'%length
-      buff.write(self.pose.data.tostring())
       _x = self
-      buff.write(_get_struct_2d().pack(_x.vel.data, _x.accel.data))
+      buff.write(_get_struct_q4d().pack(_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -238,51 +129,19 @@ float64 data"""
     try:
       if self.ID is None:
         self.ID = std_msgs.msg.Int64()
-      if self.pose is None:
-        self.pose = std_msgs.msg.Float64MultiArray()
+      if self.x is None:
+        self.x = std_msgs.msg.Float64()
+      if self.y is None:
+        self.y = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
-      if self.accel is None:
-        self.accel = std_msgs.msg.Float64()
+      if self.acc is None:
+        self.acc = std_msgs.msg.Float64()
       end = 0
-      start = end
-      end += 8
-      (self.ID.data,) = _get_struct_q().unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      self.pose.layout.dim = []
-      for i in range(0, length):
-        val1 = std_msgs.msg.MultiArrayDimension()
-        start = end
-        end += 4
-        (length,) = _struct_I.unpack(str[start:end])
-        start = end
-        end += length
-        if python3:
-          val1.label = str[start:end].decode('utf-8', 'rosmsg')
-        else:
-          val1.label = str[start:end]
-        _x = val1
-        start = end
-        end += 8
-        (_x.size, _x.stride,) = _get_struct_2I().unpack(str[start:end])
-        self.pose.layout.dim.append(val1)
-      start = end
-      end += 4
-      (self.pose.layout.data_offset,) = _get_struct_I().unpack(str[start:end])
-      start = end
-      end += 4
-      (length,) = _struct_I.unpack(str[start:end])
-      pattern = '<%sd'%length
-      start = end
-      s = struct.Struct(pattern)
-      end += s.size
-      self.pose.data = numpy.frombuffer(str[start:end], dtype=numpy.float64, count=length)
       _x = self
       start = end
-      end += 16
-      (_x.vel.data, _x.accel.data,) = _get_struct_2d().unpack(str[start:end])
+      end += 40
+      (_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data,) = _get_struct_q4d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -291,21 +150,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_2I = None
-def _get_struct_2I():
-    global _struct_2I
-    if _struct_2I is None:
-        _struct_2I = struct.Struct("<2I")
-    return _struct_2I
-_struct_2d = None
-def _get_struct_2d():
-    global _struct_2d
-    if _struct_2d is None:
-        _struct_2d = struct.Struct("<2d")
-    return _struct_2d
-_struct_q = None
-def _get_struct_q():
-    global _struct_q
-    if _struct_q is None:
-        _struct_q = struct.Struct("<q")
-    return _struct_q
+_struct_q4d = None
+def _get_struct_q4d():
+    global _struct_q4d
+    if _struct_q4d is None:
+        _struct_q4d = struct.Struct("<q4d")
+    return _struct_q4d

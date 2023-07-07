@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "/home/renan/limo_ws/devel/include/summer_project/limo_info.h"
+  "/home/renan/limo_ws/devel/include/summer_project/limo_info_array.h"
   "CMakeFiles/summer_project_generate_messages_cpp"
 )
 

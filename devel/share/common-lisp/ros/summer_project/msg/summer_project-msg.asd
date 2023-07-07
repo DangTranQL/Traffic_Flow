@@ -7,4 +7,6 @@
   :components ((:file "_package")
     (:file "limo_info" :depends-on ("_package_limo_info"))
     (:file "_package_limo_info" :depends-on ("_package"))
+    (:file "limo_info_array" :depends-on ("_package_limo_info_array"))
+    (:file "_package_limo_info_array" :depends-on ("_package"))
   ))

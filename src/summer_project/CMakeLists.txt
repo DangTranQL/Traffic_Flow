@@ -52,6 +52,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
    FILES
    limo_info.msg
+   limo_info_array.msg
 )
 
 ## Generate services in the 'srv' folder

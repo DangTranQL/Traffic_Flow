@@ -16,7 +16,8 @@
 #include <ros/message_operations.h>
 
 #include <std_msgs/Int64.h>
-#include <std_msgs/Float64MultiArray.h>
+#include <std_msgs/Float64.h>
+#include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
 
@@ -29,15 +30,17 @@ struct limo_info_
 
   limo_info_()
     : ID()
-    , pose()
+    , x()
+    , y()
     , vel()
-    , accel()  {
+    , acc()  {
     }
   limo_info_(const ContainerAllocator& _alloc)
     : ID(_alloc)
-    , pose(_alloc)
+    , x(_alloc)
+    , y(_alloc)
     , vel(_alloc)
-    , accel(_alloc)  {
+    , acc(_alloc)  {
   (void)_alloc;
     }
 
@@ -46,14 +49,17 @@ struct limo_info_
    typedef  ::std_msgs::Int64_<ContainerAllocator>  _ID_type;
   _ID_type ID;
 
-   typedef  ::std_msgs::Float64MultiArray_<ContainerAllocator>  _pose_type;
-  _pose_type pose;
+   typedef  ::std_msgs::Float64_<ContainerAllocator>  _x_type;
+  _x_type x;
+
+   typedef  ::std_msgs::Float64_<ContainerAllocator>  _y_type;
+  _y_type y;
 
    typedef  ::std_msgs::Float64_<ContainerAllocator>  _vel_type;
   _vel_type vel;
 
-   typedef  ::std_msgs::Float64_<ContainerAllocator>  _accel_type;
-  _accel_type accel;
+   typedef  ::std_msgs::Float64_<ContainerAllocator>  _acc_type;
+  _acc_type acc;
 
 
 
@@ -85,9 +91,10 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::summer_project::limo_info_<ContainerAllocator1> & lhs, const ::summer_project::limo_info_<ContainerAllocator2> & rhs)
 {
   return lhs.ID == rhs.ID &&
-    lhs.pose == rhs.pose &&
+    lhs.x == rhs.x &&
+    lhs.y == rhs.y &&
     lhs.vel == rhs.vel &&
-    lhs.accel == rhs.accel;
+    lhs.acc == rhs.acc;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -120,12 +127,12 @@ struct IsMessage< ::summer_project::limo_info_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::summer_project::limo_info_<ContainerAllocator> >
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::summer_project::limo_info_<ContainerAllocator> const>
-  : FalseType
+  : TrueType
   { };
 
 template <class ContainerAllocator>
@@ -144,12 +151,12 @@ struct MD5Sum< ::summer_project::limo_info_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "68fc7bffa679ec42e202fe8ddecc03a6";
+    return "326e2462ad523a29cf0e1a6ca744aac8";
   }
 
   static const char* value(const ::summer_project::limo_info_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x68fc7bffa679ec42ULL;
-  static const uint64_t static_value2 = 0xe202fe8ddecc03a6ULL;
+  static const uint64_t static_value1 = 0x326e2462ad523a29ULL;
+  static const uint64_t static_value2 = 0xcf0e1a6ca744aac8ULL;
 };
 
 template<class ContainerAllocator>
@@ -169,56 +176,14 @@ struct Definition< ::summer_project::limo_info_<ContainerAllocator> >
   static const char* value()
   {
     return "std_msgs/Int64 ID\n"
-"std_msgs/Float64MultiArray pose\n"
+"std_msgs/Float64 x\n"
+"std_msgs/Float64 y\n"
 "std_msgs/Float64 vel\n"
-"std_msgs/Float64 accel\n"
+"std_msgs/Float64 acc\n"
 "\n"
 "================================================================================\n"
 "MSG: std_msgs/Int64\n"
 "int64 data\n"
-"================================================================================\n"
-"MSG: std_msgs/Float64MultiArray\n"
-"# Please look at the MultiArrayLayout message definition for\n"
-"# documentation on all multiarrays.\n"
-"\n"
-"MultiArrayLayout  layout        # specification of data layout\n"
-"float64[]         data          # array of data\n"
-"\n"
-"\n"
-"================================================================================\n"
-"MSG: std_msgs/MultiArrayLayout\n"
-"# The multiarray declares a generic multi-dimensional array of a\n"
-"# particular data type.  Dimensions are ordered from outer most\n"
-"# to inner most.\n"
-"\n"
-"MultiArrayDimension[] dim # Array of dimension properties\n"
-"uint32 data_offset        # padding elements at front of data\n"
-"\n"
-"# Accessors should ALWAYS be written in terms of dimension stride\n"
-"# and specified outer-most dimension first.\n"
-"# \n"
-"# multiarray(i,j,k) = data[data_offset + dim_stride[1]*i + dim_stride[2]*j + k]\n"
-"#\n"
-"# A standard, 3-channel 640x480 image with interleaved color channels\n"
-"# would be specified as:\n"
-"#\n"
-"# dim[0].label  = \"height\"\n"
-"# dim[0].size   = 480\n"
-"# dim[0].stride = 3*640*480 = 921600  (note dim[0] stride is just size of image)\n"
-"# dim[1].label  = \"width\"\n"
-"# dim[1].size   = 640\n"
-"# dim[1].stride = 3*640 = 1920\n"
-"# dim[2].label  = \"channel\"\n"
-"# dim[2].size   = 3\n"
-"# dim[2].stride = 3\n"
-"#\n"
-"# multiarray(i,j,k) refers to the ith row, jth column, and kth channel.\n"
-"\n"
-"================================================================================\n"
-"MSG: std_msgs/MultiArrayDimension\n"
-"string label   # label of given dimension\n"
-"uint32 size    # size of given dimension (in type units)\n"
-"uint32 stride  # stride of given dimension\n"
 "================================================================================\n"
 "MSG: std_msgs/Float64\n"
 "float64 data\n"
@@ -241,9 +206,10 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.ID);
-      stream.next(m.pose);
+      stream.next(m.x);
+      stream.next(m.y);
       stream.next(m.vel);
-      stream.next(m.accel);
+      stream.next(m.acc);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -265,15 +231,18 @@ struct Printer< ::summer_project::limo_info_<ContainerAllocator> >
     s << indent << "ID: ";
     s << std::endl;
     Printer< ::std_msgs::Int64_<ContainerAllocator> >::stream(s, indent + "  ", v.ID);
-    s << indent << "pose: ";
+    s << indent << "x: ";
     s << std::endl;
-    Printer< ::std_msgs::Float64MultiArray_<ContainerAllocator> >::stream(s, indent + "  ", v.pose);
+    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.x);
+    s << indent << "y: ";
+    s << std::endl;
+    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.y);
     s << indent << "vel: ";
     s << std::endl;
     Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.vel);
-    s << indent << "accel: ";
+    s << indent << "acc: ";
     s << std::endl;
-    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.accel);
+    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.acc);
   }
 };
 

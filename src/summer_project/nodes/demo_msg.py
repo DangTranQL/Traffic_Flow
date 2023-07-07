@@ -6,6 +6,8 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Float64MultiArray, String, Float64, MultiArrayDimension
 from summer_project.msg import limo_info, limo_info_array
+from simple_pid import PID
+
 
 ns = rospy.get_namespace()
 if len(ns) > 1:
@@ -19,13 +21,16 @@ mocap_topic_name = '/mocap_pose'
 PROJ_NODE_DATA = limo_info()#Float64MultiArray()
 PROJ_NODE_DATA.ID.data = int(ns[-3:])
 
-# PROJ_NODE_DATA.pose.layout.dim = [MultiArrayDimension()]
-#print("\n\n\n\n\n\n", PROJ_NODE_DATA.pose.layout.dim, "\n\n\n\n\n")
-# PROJ_NODE_DATA.pose.layout.dim[0].label = "n"
-# PROJ_NODE_DATA.pose.layout.dim[0].size = 2
-#PROJ_NODE_DATA.pose.layout.dim = [2]
 
-# PROJ_NODE_DATA.pose.data = [0,0]
+#PID stuff
+kp = 1
+ki = 0.1
+kd = 0.05
+
+pid = PID(kp,ki,kd, setpoint=0)
+DUMMY_DIST_ERR = 1
+MAX_STEER = np.pi/8
+
 class project_node:
     def __init__(self):
         #print("\n\n=====\n",ns + odom_topic_name, "\n=====\n\n")
@@ -44,7 +49,7 @@ class project_node:
         global PROJ_NODE_DATA
         ang_v = msg.angular_velocity
         lin_acc = msg.linear_acceleration
-        PROJ_NODE_DATA.accel.data = lin_acc.x # CHECK IF x IS RIGHT!!
+        PROJ_NODE_DATA.acc.data = lin_acc.x # CHECK IF x IS RIGHT!!
         self.pub_msg()
         #PROJ_NODE_DATA.accel.angular
     def mocap_callb(self, msg):
@@ -58,4 +63,10 @@ class project_node:
 if __name__ == '__main__':
     rospy.init_node("project_node")
     node = project_node()
-    rospy.spin()
+    # rospy.spin()
+    while True:
+        #get lateral distance
+        e = DUMMY_DIST_ERR # TODO: UPDATE THIS BASED ON THE PATHS
+        c = pid(e)
+
+        theta = min(MAX_STEER, max(-MAX_STEER, c))

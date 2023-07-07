@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "summer_project: 1 messages, 0 services")
+message(STATUS "summer_project: 2 messages, 0 services")
 
 set(MSG_I_FLAGS "-Isummer_project:/home/renan/limo_ws/src/summer_project/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
@@ -19,7 +19,12 @@ add_custom_target(summer_project_generate_messages ALL)
 
 get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" NAME_WE)
 add_custom_target(_summer_project_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "summer_project" "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" "std_msgs/Int64:std_msgs/Float64:std_msgs/Float64MultiArray:std_msgs/MultiArrayLayout:std_msgs/MultiArrayDimension"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "summer_project" "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" "std_msgs/Int64:std_msgs/Float64"
+)
+
+get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" NAME_WE)
+add_custom_target(_summer_project_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "summer_project" "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" "std_msgs/Int64:summer_project/limo_info:std_msgs/Float64"
 )
 
 #
@@ -31,7 +36,13 @@ add_custom_target(_summer_project_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(summer_project
   "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64MultiArray.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/summer_project
+)
+_generate_msg_cpp(summer_project
+  "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/summer_project
 )
 
@@ -51,6 +62,8 @@ add_dependencies(summer_project_generate_messages summer_project_generate_messag
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" NAME_WE)
 add_dependencies(summer_project_generate_messages_cpp _summer_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" NAME_WE)
+add_dependencies(summer_project_generate_messages_cpp _summer_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(summer_project_gencpp)
@@ -64,7 +77,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS summer_project_generate_messages_cp
 _generate_msg_eus(summer_project
   "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64MultiArray.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/summer_project
+)
+_generate_msg_eus(summer_project
+  "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/summer_project
 )
 
@@ -84,6 +103,8 @@ add_dependencies(summer_project_generate_messages summer_project_generate_messag
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" NAME_WE)
 add_dependencies(summer_project_generate_messages_eus _summer_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" NAME_WE)
+add_dependencies(summer_project_generate_messages_eus _summer_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(summer_project_geneus)
@@ -97,7 +118,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS summer_project_generate_messages_eu
 _generate_msg_lisp(summer_project
   "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64MultiArray.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/summer_project
+)
+_generate_msg_lisp(summer_project
+  "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/summer_project
 )
 
@@ -117,6 +144,8 @@ add_dependencies(summer_project_generate_messages summer_project_generate_messag
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" NAME_WE)
 add_dependencies(summer_project_generate_messages_lisp _summer_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" NAME_WE)
+add_dependencies(summer_project_generate_messages_lisp _summer_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(summer_project_genlisp)
@@ -130,7 +159,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS summer_project_generate_messages_li
 _generate_msg_nodejs(summer_project
   "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64MultiArray.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/summer_project
+)
+_generate_msg_nodejs(summer_project
+  "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/summer_project
 )
 
@@ -150,6 +185,8 @@ add_dependencies(summer_project_generate_messages summer_project_generate_messag
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" NAME_WE)
 add_dependencies(summer_project_generate_messages_nodejs _summer_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" NAME_WE)
+add_dependencies(summer_project_generate_messages_nodejs _summer_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(summer_project_gennodejs)
@@ -163,7 +200,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS summer_project_generate_messages_no
 _generate_msg_py(summer_project
   "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64MultiArray.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayLayout.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/MultiArrayDimension.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/summer_project
+)
+_generate_msg_py(summer_project
+  "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Int64.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Float64.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/summer_project
 )
 
@@ -182,6 +225,8 @@ add_dependencies(summer_project_generate_messages summer_project_generate_messag
 
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg" NAME_WE)
+add_dependencies(summer_project_generate_messages_py _summer_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg" NAME_WE)
 add_dependencies(summer_project_generate_messages_py _summer_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
