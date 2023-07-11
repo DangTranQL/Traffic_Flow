@@ -28,14 +28,18 @@ PROJ_NODE_DATA.ID.data = int(ns[-3:])
 #PID stuff
 v = 0.25
 
-kp = 0.9
-ki = 0.009
-kd = 0.75
+pos_kp = 0.9
+pos_ki = 0.009
+pos_kd = 0.85
 
-pid = PID(kp,ki,kd, setpoint=0)
+pos_pid = PID(pos_kp,pos_ki,pos_kd, setpoint=0)
 
 
+head_kp = 0.9
+head_ki = 0.009
+head_kd = 0.75
 
+head_pid = PID(head_kp,head_ki,head_kd, setpoint=0)
 
 
 
@@ -92,10 +96,14 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         #get lateral distance
         bot_pos = [PROJ_NODE_DATA.x.data, PROJ_NODE_DATA.y.data]
-        e = r - geom.dist_2_line(P0,P1, bot_pos)
-        e *= abs(e) * 10
+        pos_e = r - geom.dist_2_line(P0,P1, bot_pos)
+        pos_e *= abs(pos_e) * 10
         # print(e)
-        c = pid(e)
+        pos_c = pos_pid(pos_e)
+
+        #
+
+        c = pos_c
 
         theta = min(MAX_STEER, max(-MAX_STEER, c))
         # v = 0.4
