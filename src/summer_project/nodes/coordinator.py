@@ -12,7 +12,9 @@ if len(ns) > 1:
     print("=======\n{}\n======".format(ns))
 ns = '/' + ns.strip('/')
 
-LIMO_IDs = [789, 155]
+LIMO_IDs = [789, 155, 799, 770, 815]
+
+MPs = []
 
 limo_sub_topics = {}#ID:"LIMO_000{}/limo_info".format(ID) for ID in LIMO_IDs}
 limo_pub_topics = {}#ID:"LIMO_000{}/MP_info".format(ID) for ID in LIMO_IDs}
@@ -23,8 +25,8 @@ for ID in LIMO_IDs:
 LIMO_INFOS = {}
 LIMO_OUTFOS = { # ID : LIST_OF_IDs
         #i.e.  robot : info needed by robot
-    789:[789,155],
-    155:[155, 789]
+    789:[799, 155, 770, 815]
+    # 155:[155, 789]
 }
 
 class coordinator_node:

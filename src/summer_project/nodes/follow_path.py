@@ -12,7 +12,7 @@ import time
 from pylimo import limo
 from collections import deque
 from robot import signed_dist
-import QP
+# import QP
 
 from lane_poly import *
 #using waypoints
@@ -34,7 +34,7 @@ TST_PATH = RT_WPTS_A # used by loop
 path_string = "right_A"
 #path_string = "straight_A"
 
-my_robot = QP.Robot(-0.3, 0.3, 0.18, 0.18, 0.1, 0, 1)
+# my_robot = QP.Robot(-0.3, 0.3, 0.18, 0.18, 0.1, 0, 1)
 
 
 
@@ -105,53 +105,24 @@ r = 1
 # bot_pos = [0,0]
 class project_node:
     def __init__(self):
-        #print("\n\n=====\n",ns + odom_topic_name, "\n=====\n\n")
-        # self.cmd_vel_pub = rospy.Publisher(ns + cmd_vel_topic, Twist, queue_size=10)
-        self.info_pub = rospy.Publisher(ns + proj_topic_name, limo_info, queue_size=10)
-
-        self.odom_sub = rospy.Subscriber(ns + odom_topic_name, Odometry, self.odom_callb, queue_size=10)
-        self.imu_sub = rospy.Subscriber(ns + imu_topic_name, Imu, self.imu_callb, queue_size=10)
-        self.mocap_sub = rospy.Subscriber(ns + mocap_topic_name, PoseStamped, self.mocap_callb, queue_size=10)
+        self.info_sub = rospy.Subscriber(ns + proj_topic_name, limo_info, self.info_callb, queue_size=10)
         self.error_pub = rospy.Publisher(ns + error_topic, Float64, queue_size=10)
+    def info_callb(self, info_msg):
+        global PROJ_NODE_DATA
+        PROJ_NODE_DATA = info_msg
     def cmd_vel(self, v, th):
-        # msg = Twist()
-        # msg.linear.x = v
-        # msg.angular.z = th
-        # self.cmd_vel_pub.publish(msg)
         limo.SetMotionCommand(v, 0, 0, th)
-    def pub_msg(self):
-        self.info_pub.publish(PROJ_NODE_DATA)
-    def odom_callb(self, msg):
-        global PROJ_NODE_DATA
-        PROJ_NODE_DATA.vel.data = msg.twist.twist.linear.x # CHECK IF x IS RIGHT!!
-        self.pub_msg()
-    def imu_callb(self, msg):
-        global PROJ_NODE_DATA
-        ang_v = msg.angular_velocity
-        lin_acc = msg.linear_acceleration
-        PROJ_NODE_DATA.acc.data = lin_acc.x # CHECK IF x IS RIGHT!!
-        self.pub_msg()
-        #PROJ_NODE_DATA.accel.angular
-    def mocap_callb(self, msg):
-        global PROJ_NODE_DATA
-        #PROJ_NODE_DATA.pose.data[0] = msg.pose.position.x    #CHECK THESE TOO!!!
-        #PROJ_NODE_DATA.pose.data[1] = msg.pose.position.y
-        p = msg.pose.position
-        PROJ_NODE_DATA.x.data = - p.x
-        PROJ_NODE_DATA.y.data = - p.y
-        self.pub_msg()
-
 
 if __name__ == '__main__':
-    rospy.init_node("project_node")
+    rospy.init_node("path_follower")
     node = project_node()
     node.cmd_vel(0, 0)
     time.sleep(0.15)
-    # rospy.spin()
-    # try:
+
     last_t = rospy.get_time()
     dts = deque(maxlen=8)
-    rospy.loginfo("| {:^9s} | {:^9s} | {:^9s} |".format("dt", "position", "velocity"))
+    rospy.loginfo("| {:^9s} | {:^9s} |".format("dt", "error"))
+
     while not rospy.is_shutdown():
         #get lateral distance
         cur_t = rospy.get_time()
@@ -168,17 +139,17 @@ if __name__ == '__main__':
         e = signed_dist(bot_pos, path_string) * 1000 # Dang's code
         node.error_pub.publish(e)
         # try:
-        rt, vd = my_robot.OCBF_SecondOrderDynamics(1, np.array([
-                    [-1, -1, -1, -1],
-                    [-1, -1, -1, -1],
-                    [-1, -1, -1, -1],
-                    ]),
-                    [0.503779, 0.5, 0.2898, 1.061228]
-                )
-        rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^-9.4f} | {:^-9.4f} |".format(dt, rt[0], rt[1], vd))
+        # rt, vd = my_robot.OCBF_SecondOrderDynamics(1, np.array([
+        #             [-1, -1, -1, -1],
+        #             [-1, -1, -1, -1],
+        #             [-1, -1, -1, -1],
+        #             ]),
+        #             [0.503779, 0.5, 0.2898, 1.061228]
+        #         )
+        # rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^-9.4f} | {:^-9.4f} |".format(dt, rt[0], rt[1], vd))
         # except TypeEr,ror:
         #     rospy.loginfo("INFEASIBLE")
-        # rospy.loginfo("| {:^-9.4f} |".format(dt))#, rt[0], rt[1]))
+        rospy.loginfo("| {:^-9.4f} | {:^-9.4f} |".format(dt, e))#, rt[0], rt[1]))
         # #=========================++CONTROL with PID=============
         if geom.dist(bot_pos, TST_PATH[-1]) < 0.6:
         # # if geom.dist(bot_pos, end_p) < 0.6:
