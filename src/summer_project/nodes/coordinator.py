@@ -25,9 +25,16 @@ for ID in LIMO_IDs:
 LIMO_INFOS = {}
 LIMO_OUTFOS = { # ID : LIST_OF_IDs
         #i.e.  robot : info needed by robot
-    789:[799, 155, 770, 815]
+    789:[789, 799, 155, 770, 815]
     # 155:[155, 789]
 }
+
+out_datas = {
+    789: limo_info_array()
+}
+for targ in LIMO_OUTFOS.keys():
+    for val in LIMO_OUTFOS[targ]:
+        out_datas[targ].limo_infos.append(limo_info())
 
 class coordinator_node:
     def __init__(self):
@@ -39,17 +46,24 @@ class coordinator_node:
     def limo_info_callb(self, msg):
         #called by each subscriber
         global LIMO_INFOS
+        global out_datas
         id = msg.ID.data
         LIMO_INFOS[id] = msg
         #msg contains ID and also other data...
         #each LIMO will need a set of limo_info datas, (i assume i'll know how to decide which)
         for targ_id in LIMO_OUTFOS.keys():
-            out_msg = limo_info_array()
-            out_msg.limo_infos = []
+            # out_msg = limo_info_array()
+            # out_msg.limo_infos = []
+            num_out = len(LIMO_OUTFOS[targ_id])
+            c = 0
             for limo_id in LIMO_OUTFOS[targ_id]:
                 if limo_id in LIMO_INFOS.keys():
-                    out_msg.limo_infos.append(LIMO_INFOS[limo_id])
-            self.limo_infos_pubs[targ_id].publish(out_msg)
+                    # out_msg.limo_infos.append(LIMO_INFOS[limo_id])
+                    # out_datas[targ_id].limo_infos.append(LIMO_INFOS[limo_id])
+                    out_datas[targ_id].limo_infos[c] = LIMO_INFOS[limo_id]
+                    c += 1
+            # self.limo_infos_pubs[targ_id].publish(out_msg)
+            self.limo_infos_pubs[targ_id].publish(out_datas[targ_id])
 if __name__ == '__main__':
     rospy.init_node('coordinator')
     coord = coordinator_node()

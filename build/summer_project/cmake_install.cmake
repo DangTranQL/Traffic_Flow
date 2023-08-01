@@ -41,6 +41,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/summer_project/msg" TYPE FILE FILES
     "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg"
     "/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+    "/home/renan/limo_ws/src/summer_project/msg/QP_solution.msg"
     )
 endif()
 

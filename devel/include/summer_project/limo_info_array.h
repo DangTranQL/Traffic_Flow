@@ -123,12 +123,12 @@ struct MD5Sum< ::summer_project::limo_info_array_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "541ed61dea88be0fe3b6414c57d53b62";
+    return "b6f153c47b9f49e518bc9a4674db275c";
   }
 
   static const char* value(const ::summer_project::limo_info_array_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x541ed61dea88be0fULL;
-  static const uint64_t static_value2 = 0xe3b6414c57d53b62ULL;
+  static const uint64_t static_value1 = 0xb6f153c47b9f49e5ULL;
+  static const uint64_t static_value2 = 0x18bc9a4674db275cULL;
 };
 
 template<class ContainerAllocator>
@@ -155,7 +155,6 @@ struct Definition< ::summer_project::limo_info_array_<ContainerAllocator> >
 "std_msgs/Float64 x\n"
 "std_msgs/Float64 y\n"
 "std_msgs/Float64 vel\n"
-"std_msgs/Float64 acc\n"
 "\n"
 "================================================================================\n"
 "MSG: std_msgs/Int64\n"

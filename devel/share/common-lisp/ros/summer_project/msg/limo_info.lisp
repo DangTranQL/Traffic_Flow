@@ -26,11 +26,6 @@
     :reader vel
     :initarg :vel
     :type std_msgs-msg:Float64
-    :initform (cl:make-instance 'std_msgs-msg:Float64))
-   (acc
-    :reader acc
-    :initarg :acc
-    :type std_msgs-msg:Float64
     :initform (cl:make-instance 'std_msgs-msg:Float64)))
 )
 
@@ -61,18 +56,12 @@
 (cl:defmethod vel-val ((m <limo_info>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:vel-val is deprecated.  Use summer_project-msg:vel instead.")
   (vel m))
-
-(cl:ensure-generic-function 'acc-val :lambda-list '(m))
-(cl:defmethod acc-val ((m <limo_info>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:acc-val is deprecated.  Use summer_project-msg:acc instead.")
-  (acc m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <limo_info>) ostream)
   "Serializes a message object of type '<limo_info>"
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'ID) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'x) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'y) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'vel) ostream)
-  (roslisp-msg-protocol:serialize (cl:slot-value msg 'acc) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <limo_info>) istream)
   "Deserializes a message object of type '<limo_info>"
@@ -80,7 +69,6 @@
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'x) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'y) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'vel) istream)
-  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'acc) istream)
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<limo_info>)))
@@ -91,23 +79,22 @@
   "summer_project/limo_info")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<limo_info>)))
   "Returns md5sum for a message object of type '<limo_info>"
-  "326e2462ad523a29cf0e1a6ca744aac8")
+  "17b3f4eca66f36408d5e8a3e901190f6")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'limo_info)))
   "Returns md5sum for a message object of type 'limo_info"
-  "326e2462ad523a29cf0e1a6ca744aac8")
+  "17b3f4eca66f36408d5e8a3e901190f6")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<limo_info>)))
   "Returns full string definition for message of type '<limo_info>"
-  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/Float64 vel~%std_msgs/Float64 acc~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
+  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/Float64 vel~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'limo_info)))
   "Returns full string definition for message of type 'limo_info"
-  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/Float64 vel~%std_msgs/Float64 acc~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
+  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/Float64 vel~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <limo_info>))
   (cl:+ 0
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'ID))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'x))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'y))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'vel))
-     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'acc))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <limo_info>))
   "Converts a ROS message object to a list"
@@ -116,5 +103,4 @@
     (cl:cons ':x (x msg))
     (cl:cons ':y (y msg))
     (cl:cons ':vel (vel msg))
-    (cl:cons ':acc (acc msg))
 ))

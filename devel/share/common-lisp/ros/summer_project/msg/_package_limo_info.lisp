@@ -7,6 +7,4 @@
           Y
           VEL-VAL
           VEL
-          ACC-VAL
-          ACC
 ))

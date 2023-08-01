@@ -16,8 +16,8 @@ ns = '/' + ns.strip('/')
 proj_topic_name = '/limo_info'
 odom_topic_name = '/odom'
 imu_topic_name = '/imu'
-mocap_topic_name = '/mocap_pose'
 
+mocap_topic_name = '/vrpn_client_node' + ns + '/pose'
 PROJ_NODE_DATA = limo_info()#Float64MultiArray()
 PROJ_NODE_DATA.ID.data = int(ns[-3:])
 
@@ -28,8 +28,10 @@ class project_node:
         self.info_pub = rospy.Publisher(ns + proj_topic_name, limo_info, queue_size=10)
 
         self.odom_sub = rospy.Subscriber(ns + odom_topic_name, Odometry, self.odom_callb, queue_size=10)
-        self.imu_sub = rospy.Subscriber(ns + imu_topic_name, Imu, self.imu_callb, queue_size=10)
-        self.mocap_sub = rospy.Subscriber(ns + mocap_topic_name, PoseStamped, self.mocap_callb, queue_size=10)
+        # self.imu_sub = rospy.Subscriber(ns + imu_topic_name, Imu, self.imu_callb, queue_size=10)
+        print("inside INIT")
+        print("MOCAP TOPIC:" + mocap_topic_name)
+        self.mocap_sub = rospy.Subscriber(mocap_topic_name, PoseStamped, self.mocap_callb, queue_size=10)
 
     def pub_msg(self):
         self.info_pub.publish(PROJ_NODE_DATA)
@@ -37,18 +39,19 @@ class project_node:
         global PROJ_NODE_DATA
         PROJ_NODE_DATA.vel.data = msg.twist.twist.linear.x # CHECK IF x IS RIGHT!!
         self.pub_msg()
-    def imu_callb(self, msg):
-        global PROJ_NODE_DATA
-        ang_v = msg.angular_velocity
-        lin_acc = msg.linear_acceleration
-        PROJ_NODE_DATA.acc.data = lin_acc.x # CHECK IF x IS RIGHT!!
-        self.pub_msg()
-        #PROJ_NODE_DATA.accel.angular
+    # def imu_callb(self, msg):
+    #     global PROJ_NODE_DATA
+    #     ang_v = msg.angular_velocity
+    #     lin_acc = msg.linear_acceleration
+    #     PROJ_NODE_DATA.acc.data = lin_acc.x # CHECK IF x IS RIGHT!!
+    #     self.pub_msg()
+    #     #PROJ_NODE_DATA.accel.angular
     def mocap_callb(self, msg):
         global PROJ_NODE_DATA
         #PROJ_NODE_DATA.pose.data[0] = msg.pose.position.x    #CHECK THESE TOO!!!
         #PROJ_NODE_DATA.pose.data[1] = msg.pose.position.y
         p = msg.pose.position
+        # rospy.loginfo("{}\t{}".format(p.x,p.y))
         PROJ_NODE_DATA.x.data = - p.x
         PROJ_NODE_DATA.y.data = - p.y
         self.pub_msg()

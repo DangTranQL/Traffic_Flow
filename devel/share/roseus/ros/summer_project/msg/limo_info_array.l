@@ -61,7 +61,7 @@
    self)
   )
 
-(setf (get summer_project::limo_info_array :md5sum-) "541ed61dea88be0fe3b6414c57d53b62")
+(setf (get summer_project::limo_info_array :md5sum-) "b6f153c47b9f49e518bc9a4674db275c")
 (setf (get summer_project::limo_info_array :datatype-) "summer_project/limo_info_array")
 (setf (get summer_project::limo_info_array :definition-)
       "limo_info[] limo_infos
@@ -72,7 +72,6 @@ std_msgs/Int64 ID
 std_msgs/Float64 x
 std_msgs/Float64 y
 std_msgs/Float64 vel
-std_msgs/Float64 acc
 
 ================================================================================
 MSG: std_msgs/Int64
@@ -84,6 +83,6 @@ float64 data
 
 
 
-(provide :summer_project/limo_info_array "541ed61dea88be0fe3b6414c57d53b62")
+(provide :summer_project/limo_info_array "b6f153c47b9f49e518bc9a4674db275c")
 
 

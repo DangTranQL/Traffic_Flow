@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg"
+messages_str = "/home/renan/limo_ws/src/summer_project/msg/limo_info.msg;/home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg;/home/renan/limo_ws/src/summer_project/msg/QP_solution.msg"
 services_str = ""
 pkg_name = "summer_project"
 dependencies_str = "geometry_msgs;std_msgs"

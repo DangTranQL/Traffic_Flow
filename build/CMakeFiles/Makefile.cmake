@@ -288,6 +288,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "summer_project/CMakeFiles/roscpp_generate_messages_py.dir/DependInfo.cmake"
   "summer_project/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir/DependInfo.cmake"
   "summer_project/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake"
+  "summer_project/CMakeFiles/_summer_project_generate_messages_check_deps_QP_solution.dir/DependInfo.cmake"
   "summer_project/CMakeFiles/summer_project_genlisp.dir/DependInfo.cmake"
   "summer_project/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir/DependInfo.cmake"
   "summer_project/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/DependInfo.cmake"

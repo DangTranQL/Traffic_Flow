@@ -23,7 +23,6 @@ class limo_info {
       this.x = null;
       this.y = null;
       this.vel = null;
-      this.acc = null;
     }
     else {
       if (initObj.hasOwnProperty('ID')) {
@@ -50,12 +49,6 @@ class limo_info {
       else {
         this.vel = new std_msgs.msg.Float64();
       }
-      if (initObj.hasOwnProperty('acc')) {
-        this.acc = initObj.acc
-      }
-      else {
-        this.acc = new std_msgs.msg.Float64();
-      }
     }
   }
 
@@ -69,8 +62,6 @@ class limo_info {
     bufferOffset = std_msgs.msg.Float64.serialize(obj.y, buffer, bufferOffset);
     // Serialize message field [vel]
     bufferOffset = std_msgs.msg.Float64.serialize(obj.vel, buffer, bufferOffset);
-    // Serialize message field [acc]
-    bufferOffset = std_msgs.msg.Float64.serialize(obj.acc, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -86,13 +77,11 @@ class limo_info {
     data.y = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     // Deserialize message field [vel]
     data.vel = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
-    // Deserialize message field [acc]
-    data.acc = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 40;
+    return 32;
   }
 
   static datatype() {
@@ -102,7 +91,7 @@ class limo_info {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '326e2462ad523a29cf0e1a6ca744aac8';
+    return '17b3f4eca66f36408d5e8a3e901190f6';
   }
 
   static messageDefinition() {
@@ -112,7 +101,6 @@ class limo_info {
     std_msgs/Float64 x
     std_msgs/Float64 y
     std_msgs/Float64 vel
-    std_msgs/Float64 acc
     
     ================================================================================
     MSG: std_msgs/Int64
@@ -155,13 +143,6 @@ class limo_info {
     }
     else {
       resolved.vel = new std_msgs.msg.Float64()
-    }
-
-    if (msg.acc !== undefined) {
-      resolved.acc = std_msgs.msg.Float64.Resolve(msg.acc)
-    }
-    else {
-      resolved.acc = new std_msgs.msg.Float64()
     }
 
     return resolved;

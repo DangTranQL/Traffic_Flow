@@ -19,7 +19,6 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
-#include <std_msgs/Float64.h>
 
 namespace summer_project
 {
@@ -32,15 +31,13 @@ struct limo_info_
     : ID()
     , x()
     , y()
-    , vel()
-    , acc()  {
+    , vel()  {
     }
   limo_info_(const ContainerAllocator& _alloc)
     : ID(_alloc)
     , x(_alloc)
     , y(_alloc)
-    , vel(_alloc)
-    , acc(_alloc)  {
+    , vel(_alloc)  {
   (void)_alloc;
     }
 
@@ -57,9 +54,6 @@ struct limo_info_
 
    typedef  ::std_msgs::Float64_<ContainerAllocator>  _vel_type;
   _vel_type vel;
-
-   typedef  ::std_msgs::Float64_<ContainerAllocator>  _acc_type;
-  _acc_type acc;
 
 
 
@@ -93,8 +87,7 @@ bool operator==(const ::summer_project::limo_info_<ContainerAllocator1> & lhs, c
   return lhs.ID == rhs.ID &&
     lhs.x == rhs.x &&
     lhs.y == rhs.y &&
-    lhs.vel == rhs.vel &&
-    lhs.acc == rhs.acc;
+    lhs.vel == rhs.vel;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -151,12 +144,12 @@ struct MD5Sum< ::summer_project::limo_info_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "326e2462ad523a29cf0e1a6ca744aac8";
+    return "17b3f4eca66f36408d5e8a3e901190f6";
   }
 
   static const char* value(const ::summer_project::limo_info_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x326e2462ad523a29ULL;
-  static const uint64_t static_value2 = 0xcf0e1a6ca744aac8ULL;
+  static const uint64_t static_value1 = 0x17b3f4eca66f3640ULL;
+  static const uint64_t static_value2 = 0x8d5e8a3e901190f6ULL;
 };
 
 template<class ContainerAllocator>
@@ -179,7 +172,6 @@ struct Definition< ::summer_project::limo_info_<ContainerAllocator> >
 "std_msgs/Float64 x\n"
 "std_msgs/Float64 y\n"
 "std_msgs/Float64 vel\n"
-"std_msgs/Float64 acc\n"
 "\n"
 "================================================================================\n"
 "MSG: std_msgs/Int64\n"
@@ -209,7 +201,6 @@ namespace serialization
       stream.next(m.x);
       stream.next(m.y);
       stream.next(m.vel);
-      stream.next(m.acc);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -240,9 +231,6 @@ struct Printer< ::summer_project::limo_info_<ContainerAllocator> >
     s << indent << "vel: ";
     s << std::endl;
     Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.vel);
-    s << indent << "acc: ";
-    s << std::endl;
-    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.acc);
   }
 };
 

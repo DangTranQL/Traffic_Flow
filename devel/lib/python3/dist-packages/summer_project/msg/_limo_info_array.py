@@ -10,7 +10,7 @@ import std_msgs.msg
 import summer_project.msg
 
 class limo_info_array(genpy.Message):
-  _md5sum = "541ed61dea88be0fe3b6414c57d53b62"
+  _md5sum = "b6f153c47b9f49e518bc9a4674db275c"
   _type = "summer_project/limo_info_array"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """limo_info[] limo_infos
@@ -21,7 +21,6 @@ std_msgs/Int64 ID
 std_msgs/Float64 x
 std_msgs/Float64 y
 std_msgs/Float64 vel
-std_msgs/Float64 acc
 
 ================================================================================
 MSG: std_msgs/Int64
@@ -81,9 +80,6 @@ float64 data"""
         _v4 = val1.vel
         _x = _v4.data
         buff.write(_get_struct_d().pack(_x))
-        _v5 = val1.acc
-        _x = _v5.data
-        buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -104,26 +100,22 @@ float64 data"""
       self.limo_infos = []
       for i in range(0, length):
         val1 = summer_project.msg.limo_info()
-        _v6 = val1.ID
+        _v5 = val1.ID
         start = end
         end += 8
-        (_v6.data,) = _get_struct_q().unpack(str[start:end])
-        _v7 = val1.x
+        (_v5.data,) = _get_struct_q().unpack(str[start:end])
+        _v6 = val1.x
+        start = end
+        end += 8
+        (_v6.data,) = _get_struct_d().unpack(str[start:end])
+        _v7 = val1.y
         start = end
         end += 8
         (_v7.data,) = _get_struct_d().unpack(str[start:end])
-        _v8 = val1.y
+        _v8 = val1.vel
         start = end
         end += 8
         (_v8.data,) = _get_struct_d().unpack(str[start:end])
-        _v9 = val1.vel
-        start = end
-        end += 8
-        (_v9.data,) = _get_struct_d().unpack(str[start:end])
-        _v10 = val1.acc
-        start = end
-        end += 8
-        (_v10.data,) = _get_struct_d().unpack(str[start:end])
         self.limo_infos.append(val1)
       return self
     except struct.error as e:
@@ -140,20 +132,17 @@ float64 data"""
       length = len(self.limo_infos)
       buff.write(_struct_I.pack(length))
       for val1 in self.limo_infos:
-        _v11 = val1.ID
-        _x = _v11.data
+        _v9 = val1.ID
+        _x = _v9.data
         buff.write(_get_struct_q().pack(_x))
-        _v12 = val1.x
+        _v10 = val1.x
+        _x = _v10.data
+        buff.write(_get_struct_d().pack(_x))
+        _v11 = val1.y
+        _x = _v11.data
+        buff.write(_get_struct_d().pack(_x))
+        _v12 = val1.vel
         _x = _v12.data
-        buff.write(_get_struct_d().pack(_x))
-        _v13 = val1.y
-        _x = _v13.data
-        buff.write(_get_struct_d().pack(_x))
-        _v14 = val1.vel
-        _x = _v14.data
-        buff.write(_get_struct_d().pack(_x))
-        _v15 = val1.acc
-        _x = _v15.data
         buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -176,26 +165,22 @@ float64 data"""
       self.limo_infos = []
       for i in range(0, length):
         val1 = summer_project.msg.limo_info()
-        _v16 = val1.ID
+        _v13 = val1.ID
         start = end
         end += 8
-        (_v16.data,) = _get_struct_q().unpack(str[start:end])
-        _v17 = val1.x
+        (_v13.data,) = _get_struct_q().unpack(str[start:end])
+        _v14 = val1.x
         start = end
         end += 8
-        (_v17.data,) = _get_struct_d().unpack(str[start:end])
-        _v18 = val1.y
+        (_v14.data,) = _get_struct_d().unpack(str[start:end])
+        _v15 = val1.y
         start = end
         end += 8
-        (_v18.data,) = _get_struct_d().unpack(str[start:end])
-        _v19 = val1.vel
+        (_v15.data,) = _get_struct_d().unpack(str[start:end])
+        _v16 = val1.vel
         start = end
         end += 8
-        (_v19.data,) = _get_struct_d().unpack(str[start:end])
-        _v20 = val1.acc
-        start = end
-        end += 8
-        (_v20.data,) = _get_struct_d().unpack(str[start:end])
+        (_v16.data,) = _get_struct_d().unpack(str[start:end])
         self.limo_infos.append(val1)
       return self
     except struct.error as e:

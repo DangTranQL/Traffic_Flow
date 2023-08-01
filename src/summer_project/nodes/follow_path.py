@@ -11,7 +11,8 @@ import geom_util as geom
 import time
 from pylimo import limo
 from collections import deque
-from robot import signed_dist
+# from robot import signed_dist
+from calc import signed_dist
 # import QP
 
 from lane_poly import *

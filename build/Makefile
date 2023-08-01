@@ -610,6 +610,19 @@ rosgraph_msgs_generate_messages_lisp/fast:
 .PHONY : rosgraph_msgs_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named _summer_project_generate_messages_check_deps_QP_solution
+
+# Build rule for target.
+_summer_project_generate_messages_check_deps_QP_solution: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _summer_project_generate_messages_check_deps_QP_solution
+.PHONY : _summer_project_generate_messages_check_deps_QP_solution
+
+# fast build rule for target.
+_summer_project_generate_messages_check_deps_QP_solution/fast:
+	$(MAKE) -f summer_project/CMakeFiles/_summer_project_generate_messages_check_deps_QP_solution.dir/build.make summer_project/CMakeFiles/_summer_project_generate_messages_check_deps_QP_solution.dir/build
+.PHONY : _summer_project_generate_messages_check_deps_QP_solution/fast
+
+#=============================================================================
 # Target rules for targets named summer_project_genlisp
 
 # Build rule for target.
@@ -1163,6 +1176,7 @@ help:
 	@echo "... roscpp_generate_messages_py"
 	@echo "... rosgraph_msgs_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
+	@echo "... _summer_project_generate_messages_check_deps_QP_solution"
 	@echo "... summer_project_genlisp"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"
 	@echo "... rosgraph_msgs_generate_messages_py"

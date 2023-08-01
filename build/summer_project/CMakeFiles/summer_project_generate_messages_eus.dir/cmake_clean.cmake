@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "/home/renan/limo_ws/devel/share/roseus/ros/summer_project/manifest.l"
+  "/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/QP_solution.l"
   "/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info.l"
   "/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l"
   "CMakeFiles/summer_project_generate_messages_eus"

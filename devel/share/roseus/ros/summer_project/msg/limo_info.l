@@ -16,7 +16,7 @@
 
 (defclass summer_project::limo_info
   :super ros::object
-  :slots (_ID _x _y _vel _acc ))
+  :slots (_ID _x _y _vel ))
 
 (defmethod summer_project::limo_info
   (:init
@@ -25,14 +25,12 @@
     ((:x __x) (instance std_msgs::Float64 :init))
     ((:y __y) (instance std_msgs::Float64 :init))
     ((:vel __vel) (instance std_msgs::Float64 :init))
-    ((:acc __acc) (instance std_msgs::Float64 :init))
     )
    (send-super :init)
    (setq _ID __ID)
    (setq _x __x)
    (setq _y __y)
    (setq _vel __vel)
-   (setq _acc __acc)
    self)
   (:ID
    (&rest __ID)
@@ -62,13 +60,6 @@
      (progn
        (if __vel (setq _vel (car __vel)))
        _vel)))
-  (:acc
-   (&rest __acc)
-   (if (keywordp (car __acc))
-       (send* _acc __acc)
-     (progn
-       (if __acc (setq _acc (car __acc)))
-       _acc)))
   (:serialization-length
    ()
    (+
@@ -80,8 +71,6 @@
     (send _y :serialization-length)
     ;; std_msgs/Float64 _vel
     (send _vel :serialization-length)
-    ;; std_msgs/Float64 _acc
-    (send _acc :serialization-length)
     ))
   (:serialize
    (&optional strm)
@@ -95,8 +84,6 @@
        (send _y :serialize s)
      ;; std_msgs/Float64 _vel
        (send _vel :serialize s)
-     ;; std_msgs/Float64 _acc
-       (send _acc :serialize s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -109,20 +96,17 @@
      (send _y :deserialize buf ptr-) (incf ptr- (send _y :serialization-length))
    ;; std_msgs/Float64 _vel
      (send _vel :deserialize buf ptr-) (incf ptr- (send _vel :serialization-length))
-   ;; std_msgs/Float64 _acc
-     (send _acc :deserialize buf ptr-) (incf ptr- (send _acc :serialization-length))
    ;;
    self)
   )
 
-(setf (get summer_project::limo_info :md5sum-) "326e2462ad523a29cf0e1a6ca744aac8")
+(setf (get summer_project::limo_info :md5sum-) "17b3f4eca66f36408d5e8a3e901190f6")
 (setf (get summer_project::limo_info :datatype-) "summer_project/limo_info")
 (setf (get summer_project::limo_info :definition-)
       "std_msgs/Int64 ID
 std_msgs/Float64 x
 std_msgs/Float64 y
 std_msgs/Float64 vel
-std_msgs/Float64 acc
 
 ================================================================================
 MSG: std_msgs/Int64
@@ -134,6 +118,6 @@ float64 data
 
 
 
-(provide :summer_project/limo_info "326e2462ad523a29cf0e1a6ca744aac8")
+(provide :summer_project/limo_info "17b3f4eca66f36408d5e8a3e901190f6")
 
 

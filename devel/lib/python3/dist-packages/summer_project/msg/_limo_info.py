@@ -9,14 +9,13 @@ import struct
 import std_msgs.msg
 
 class limo_info(genpy.Message):
-  _md5sum = "326e2462ad523a29cf0e1a6ca744aac8"
+  _md5sum = "17b3f4eca66f36408d5e8a3e901190f6"
   _type = "summer_project/limo_info"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """std_msgs/Int64 ID
 std_msgs/Float64 x
 std_msgs/Float64 y
 std_msgs/Float64 vel
-std_msgs/Float64 acc
 
 ================================================================================
 MSG: std_msgs/Int64
@@ -24,8 +23,8 @@ int64 data
 ================================================================================
 MSG: std_msgs/Float64
 float64 data"""
-  __slots__ = ['ID','x','y','vel','acc']
-  _slot_types = ['std_msgs/Int64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64']
+  __slots__ = ['ID','x','y','vel']
+  _slot_types = ['std_msgs/Int64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64']
 
   def __init__(self, *args, **kwds):
     """
@@ -35,7 +34,7 @@ float64 data"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       ID,x,y,vel,acc
+       ID,x,y,vel
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -52,14 +51,11 @@ float64 data"""
         self.y = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
-      if self.acc is None:
-        self.acc = std_msgs.msg.Float64()
     else:
       self.ID = std_msgs.msg.Int64()
       self.x = std_msgs.msg.Float64()
       self.y = std_msgs.msg.Float64()
       self.vel = std_msgs.msg.Float64()
-      self.acc = std_msgs.msg.Float64()
 
   def _get_types(self):
     """
@@ -74,7 +70,7 @@ float64 data"""
     """
     try:
       _x = self
-      buff.write(_get_struct_q4d().pack(_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data))
+      buff.write(_get_struct_q3d().pack(_x.ID.data, _x.x.data, _x.y.data, _x.vel.data))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -94,13 +90,11 @@ float64 data"""
         self.y = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
-      if self.acc is None:
-        self.acc = std_msgs.msg.Float64()
       end = 0
       _x = self
       start = end
-      end += 40
-      (_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data,) = _get_struct_q4d().unpack(str[start:end])
+      end += 32
+      (_x.ID.data, _x.x.data, _x.y.data, _x.vel.data,) = _get_struct_q3d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -114,7 +108,7 @@ float64 data"""
     """
     try:
       _x = self
-      buff.write(_get_struct_q4d().pack(_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data))
+      buff.write(_get_struct_q3d().pack(_x.ID.data, _x.x.data, _x.y.data, _x.vel.data))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -135,13 +129,11 @@ float64 data"""
         self.y = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
-      if self.acc is None:
-        self.acc = std_msgs.msg.Float64()
       end = 0
       _x = self
       start = end
-      end += 40
-      (_x.ID.data, _x.x.data, _x.y.data, _x.vel.data, _x.acc.data,) = _get_struct_q4d().unpack(str[start:end])
+      end += 32
+      (_x.ID.data, _x.x.data, _x.y.data, _x.vel.data,) = _get_struct_q3d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -150,9 +142,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_q4d = None
-def _get_struct_q4d():
-    global _struct_q4d
-    if _struct_q4d is None:
-        _struct_q4d = struct.Struct("<q4d")
-    return _struct_q4d
+_struct_q3d = None
+def _get_struct_q3d():
+    global _struct_q3d
+    if _struct_q3d is None:
+        _struct_q3d = struct.Struct("<q3d")
+    return _struct_q3d

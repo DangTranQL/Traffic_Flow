@@ -1,6 +1,7 @@
 import cvxpy as cp
 import numpy as np
 from scipy.integrate import odeint
+# from OCT1 import OCT1
 
 
 class Robot:
@@ -14,7 +15,9 @@ class Robot:
         self.v_max = v_max
 
     def OCBF_SecondOrderDynamics(self, i, matrix, state):
-        ocpar = [-0.9, 0.1, 0.6, 0.72984, 2.430524, 1.0627683]
+        # ocpar = OCT1(0, 0.1, 1.564)
+        ocpar = [-0.775514512237531, 1.35826989127805, 0.100000000000000, 0, 1.75144355114535, 1.28946652089692]
+
         c = np.array(ocpar)
         x0 = np.array(state)
         eps = 10
@@ -23,8 +26,8 @@ class Robot:
 
         # reference Trajectory
         vd = 0.5 * c[0] * t ** 2 + c[1] * t + c[2]
+        # print(vd)
         u_ref = c[0] * t + c[1]
-        # print(u_ref)
 
         # Physical Limitations on velocity
         b_vmax = self.v_max - x0[1]
@@ -49,10 +52,7 @@ class Robot:
                 uminValue = abs(self.u_min)
                 hf = h - 0.5 * (vip - x0[1]) ** 2 / uminValue
 
-                if x0[1] <= vip or hf < 0:, -1.716505, 0.72984, 2.430524, 1.0627683]
-        c = np.array(ocpar)
-        x0 = np.array(state)
-        eps = 10
+                if x0[1] <= vip or hf < 0:
                     p = 1
                     LgB = 1
                     LfB = 2 * p * (vip - x0[1]) + p ** 2 * h
@@ -73,11 +73,8 @@ class Robot:
                     continue
                 else:
                     d1 = matrix[row_index][3] - matrix[row_index][1]
-                    # print("d1 is:", d1)
-                    d2 = state[3] - state[0]
-                    # print("d2 is:", d2)
-
-                L = state[3]
+                    d2 = state[row_index + 2] - state[0]
+                L = state[row_index + 2]
 
                 v0 = matrix[row_index][2]
 
@@ -100,7 +97,7 @@ class Robot:
                         if LgB != 0:
                             A = np.vstack((A, [LgB, 0]))
                             b = np.concatenate((b, [LfB + hf]))
-                #end for loop
+
             constraints = [
                 A @ x <= b
             ]
@@ -133,20 +130,18 @@ class Robot:
         t_span = (t_start, t_end)
 
         solution = odeint(second_order_model, x0[0:2], t_span, args=u)
-        # print(solution)
 
         rt = [solution[-1][0], solution[-1][1]]
         # print(rt)
-        return rt, vd
+        return rt#, vd
+
+
 
 if __name__ == '__main__':
     my_robot = Robot(-1, 1, 0.18, 0.18, 0.1, 0, 1)
 
-    my_robot.OCBF_SecondOrderDynamics(1, np.array([[3, 1.0082444, 0.5, -1], [2, 2.25106 , 0.5, 0.437371],
-                                                [4, 1.1569, 0.5, 1.5314],]),
-                                      [0.503779, 0.5, 0.2898, 1.061228])
+    my_robot.OCBF_SecondOrderDynamics(1, np.array([[3, 1.082444, 0, -1], [2, 2.25106, 0.5, 0.4373],
+                                                   [4, 1.1569, 0.5, 1.5314]]),
+                                      [0.503779, 0.5, 0.2898, 1.061228, 1.061228, 1.061228])
 
 # The 5 additional columns in the state list for our car is the distance of our car from each of the merging points!
-
-#dist = lambda p1,p2: ((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)**0.5
-#distance = dist([-3.28,2.895], [-1.029,2.912])

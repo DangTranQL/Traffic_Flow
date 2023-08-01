@@ -2,8 +2,9 @@
 
 <launch>
 
-    <remap from='/$(env LIMO_NAMESPACE)/vrpn_client_node/$(env LIMO_NAMESPACE)/pose' to='/$(env LIMO_NAMESPACE)/mocap_pose'/>
+    <!-- <remap from='/vrpn_client_node/$(env LIMO_NAMESPACE)/pose' to='/$(env LIMO_NAMESPACE)/mocap_pose'/> -->
+    <!-- <remap from='/$(env LIMO_NAMESPACE)/vrpn_client_node/$(env LIMO_NAMESPACE)/pose' to='/$(env LIMO_NAMESPACE)/mocap_pose'/> -->
     <include file='$(find limo_bringup)/launch/limo_start_minimal.launch'/>
-    <include file='$(find vrpn_client_ros)/launch/limo.launch'/>
+    <!-- <include file='$(find vrpn_client_ros)/launch/limo.launch'/> -->
     <node pkg='summer_project' name='limo_info' type='limo_info.py' ns='$(env LIMO_NAMESPACE)' output='screen'/>
 </launch>
