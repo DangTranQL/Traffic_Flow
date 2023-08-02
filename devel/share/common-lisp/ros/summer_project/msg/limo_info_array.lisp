@@ -58,16 +58,16 @@
   "summer_project/limo_info_array")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<limo_info_array>)))
   "Returns md5sum for a message object of type '<limo_info_array>"
-  "f7a094a2868f4029471366ef4b0b27b1")
+  "9be91808514d1ee6eb0b3c9e82f377ba")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'limo_info_array)))
   "Returns md5sum for a message object of type 'limo_info_array"
-  "f7a094a2868f4029471366ef4b0b27b1")
+  "9be91808514d1ee6eb0b3c9e82f377ba")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<limo_info_array>)))
   "Returns full string definition for message of type '<limo_info_array>"
-  (cl:format cl:nil "limo_info[] limo_infos~%~%================================================================================~%MSG: summer_project/limo_info~%std_msgs/Int64 ID~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/Float64 vel~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
+  (cl:format cl:nil "limo_info[] limo_infos~%~%================================================================================~%MSG: summer_project/limo_info~%std_msgs/Int64 ID~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/Float64 vel~%std_msgs/String path~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%================================================================================~%MSG: std_msgs/String~%string data~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'limo_info_array)))
   "Returns full string definition for message of type 'limo_info_array"
-  (cl:format cl:nil "limo_info[] limo_infos~%~%================================================================================~%MSG: summer_project/limo_info~%std_msgs/Int64 ID~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/Float64 vel~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
+  (cl:format cl:nil "limo_info[] limo_infos~%~%================================================================================~%MSG: summer_project/limo_info~%std_msgs/Int64 ID~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/Float64 vel~%std_msgs/String path~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%================================================================================~%MSG: std_msgs/String~%string data~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <limo_info_array>))
   (cl:+ 0
      4 (cl:reduce #'cl:+ (cl:slot-value msg 'limo_infos) :key #'(cl:lambda (ele) (cl:declare (cl:ignorable ele)) (cl:+ (roslisp-msg-protocol:serialization-length ele))))

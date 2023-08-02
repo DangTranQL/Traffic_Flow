@@ -4,6 +4,7 @@ import numpy as np
 from std_msgs.msg import Float64MultiArray, String, Float64, MultiArrayDimension
 from summer_project.msg import limo_info, limo_info_array, QP_solution
 import QP
+from calc import common_merge
 # from calc import merging_dst
 
 ns = rospy.get_namespace()
@@ -33,13 +34,37 @@ class project_node:
         # start_t = rospy.get_time()
         mp_d = LIMO_DATA.mp_dist.data
         v = LIMO_DATA.vel.data
+        origin_dist = LIMO_DATA.origin_dist.data
+        bot_path = LIMO_DATA.path.data
+        other_paths = []
+        all_positions = [(bot_path, (LIMO_DATA.x.data, LIMO_DATA.y.data)), []]
+        QP_rows = []
+        for other_limo_data in OTHER_LIMO_DATA:
+            other_paths.append(other_limo_data.path.data)
+            all_positions[1].append((other_limo_data.path.data, (other_limo_data.x.data, other_limo_data.y.data)))
+            row = [other_limo_data.ID.data, other_limo_data.origin_dist.data, other_limo_data.vel.data]
+            QP_rows.append(row)
+        dst_list = common_merge(bot_path, other_paths, all_positions)
 
-        u = self.robot.OCBF_SecondOrderDynamics(1, np.array([
-                        [-1, -1, -1, -1],
-                        [-1, -1, -1, -1],
-                        [-1, -1, -1, -1],
-                        ]),
-                        [mp_d, v, 0.2898, 1.061228,1.061228,1.061228]
+        # for
+        car1_mp_dists = [origin_dist, v]
+        for dsts in dst_list:
+            for i, dst in enumerate(dsts[1:]):
+                QP_rows[i].append(dst)
+            car1_mp_dists.append(dsts[0])
+
+
+        u = self.robot.OCBF_SecondOrderDynamics(1, np.array(
+                    # [
+                    #[ID, origin_distance, velocity, merging distance-origin distance(distance dang is giving us)]
+                        QP_rows
+                        # [-1, -1, -1, -1], # [-1, -1, -1, -1],
+                        # [-1, -1, -1, -1],
+                        # ]
+                        ),
+                        # [origin distance, velocity, remaining distance of car1 to the merging point]
+                        # [origin_dist, v]
+                        car1_mp_dists
                     )
         # fin_t = rospy.get_time()
         # rospy.loginfo("| {:^-9.4f} |".format(fin_t - start_t))

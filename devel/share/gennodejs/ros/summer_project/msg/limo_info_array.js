@@ -58,7 +58,9 @@ class limo_info_array {
 
   static getMessageSize(object) {
     let length = 0;
-    length += 32 * object.limo_infos.length;
+    object.limo_infos.forEach((val) => {
+      length += limo_info.getMessageSize(val);
+    });
     return length + 4;
   }
 
@@ -69,7 +71,7 @@ class limo_info_array {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'f7a094a2868f4029471366ef4b0b27b1';
+    return '9be91808514d1ee6eb0b3c9e82f377ba';
   }
 
   static messageDefinition() {
@@ -83,6 +85,7 @@ class limo_info_array {
     std_msgs/Float64 mp_dist
     std_msgs/Float64 origin_dist
     std_msgs/Float64 vel
+    std_msgs/String path
     
     ================================================================================
     MSG: std_msgs/Int64
@@ -90,6 +93,10 @@ class limo_info_array {
     ================================================================================
     MSG: std_msgs/Float64
     float64 data
+    ================================================================================
+    MSG: std_msgs/String
+    string data
+    
     `;
   }
 

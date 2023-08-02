@@ -62,14 +62,16 @@ summer_project/CMakeFiles/summer_project_generate_messages_eus: /home/renan/limo
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info.l: /home/renan/limo_ws/src/summer_project/msg/limo_info.msg
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info.l: /opt/ros/noetic/share/std_msgs/msg/Float64.msg
+/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info.l: /opt/ros/noetic/share/std_msgs/msg/String.msg
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info.l: /opt/ros/noetic/share/std_msgs/msg/Int64.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/renan/limo_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from summer_project/limo_info.msg"
 	cd /home/renan/limo_ws/build/summer_project && ../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/renan/limo_ws/src/summer_project/msg/limo_info.msg -Isummer_project:/home/renan/limo_ws/src/summer_project/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p summer_project -o /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg
 
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg
-/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /opt/ros/noetic/share/std_msgs/msg/Int64.msg
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /opt/ros/noetic/share/std_msgs/msg/Float64.msg
+/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /opt/ros/noetic/share/std_msgs/msg/String.msg
+/home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /opt/ros/noetic/share/std_msgs/msg/Int64.msg
 /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg/limo_info_array.l: /home/renan/limo_ws/src/summer_project/msg/limo_info.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/renan/limo_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from summer_project/limo_info_array.msg"
 	cd /home/renan/limo_ws/build/summer_project && ../catkin_generated/env_cached.sh /usr/bin/python3.8 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg -Isummer_project:/home/renan/limo_ws/src/summer_project/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p summer_project -o /home/renan/limo_ws/devel/share/roseus/ros/summer_project/msg

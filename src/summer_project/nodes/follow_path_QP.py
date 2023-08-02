@@ -174,6 +174,7 @@ class project_node:
         dt = self.u_t - self.u_t_last
         self.u_t_last = self.u_t
         self.v += dt * self.u
+        self.v = min(1, max(0, self.v))
         # self.a = qp_msg.a.data
 
 if __name__ == '__main__':
@@ -204,7 +205,9 @@ if __name__ == '__main__':
         larger = max(st_d, end_d)
         smaller = min(st_d, end_d)
         ratio = smaller / larger
-        v = min(1, max(0.2, ratio))#      V RAMPING
+        # v = min(1, max(0.2, ratio))#      V RAMPING
+
+        v = node.v
         # e, mp_d, should_stop, gain_string = signed_dist(bot_pos, path_string)
         e, mp_d, path_dist, should_stop, gain_string = signed_dist(bot_pos, path_string, v=PROJ_NODE_DATA.vel.data)
         # e, mp_d, should_stop, gain_string = signed_dist(TST_PATH, bot_pos)
@@ -212,7 +215,7 @@ if __name__ == '__main__':
 
         e *= 1000
         # rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^3b} | {:^9s} | {:^-9.4f} | {:^-5.3f} | {:^-5.3f} |".format(dt, e, should_stop, gain_string, mp_d, node.x, node.y))
-        rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^-5.3f} | {:^-5.3f} |".format(mp_d, path_dist, node.x, node.y))
+        rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^-9.4f} | {:^-5.3f} | {:^-5.3f} | {:^-9.4f} |".format(dt, mp_d, path_dist, node.x, node.y, e))
 
         if node.active:
             a = True
@@ -260,9 +263,9 @@ if __name__ == '__main__':
             if a:
                 node.cmd_vel(0,0)
                 a = False
-                left_pid.reset()
-                straight_pid.reset()
-                right_pid.reset()
+            left_pid.reset()
+            straight_pid.reset()
+            right_pid.reset()
             # #=========================END CONTROL with PID============
     # except KeyboardInterrupt:
     node.cmd_vel(0, 0)

@@ -19,6 +19,7 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
+#include <std_msgs/String.h>
 
 namespace summer_project
 {
@@ -31,13 +32,15 @@ struct limo_info_
     : ID()
     , mp_dist()
     , origin_dist()
-    , vel()  {
+    , vel()
+    , path()  {
     }
   limo_info_(const ContainerAllocator& _alloc)
     : ID(_alloc)
     , mp_dist(_alloc)
     , origin_dist(_alloc)
-    , vel(_alloc)  {
+    , vel(_alloc)
+    , path(_alloc)  {
   (void)_alloc;
     }
 
@@ -54,6 +57,9 @@ struct limo_info_
 
    typedef  ::std_msgs::Float64_<ContainerAllocator>  _vel_type;
   _vel_type vel;
+
+   typedef  ::std_msgs::String_<ContainerAllocator>  _path_type;
+  _path_type path;
 
 
 
@@ -87,7 +93,8 @@ bool operator==(const ::summer_project::limo_info_<ContainerAllocator1> & lhs, c
   return lhs.ID == rhs.ID &&
     lhs.mp_dist == rhs.mp_dist &&
     lhs.origin_dist == rhs.origin_dist &&
-    lhs.vel == rhs.vel;
+    lhs.vel == rhs.vel &&
+    lhs.path == rhs.path;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -120,12 +127,12 @@ struct IsMessage< ::summer_project::limo_info_<ContainerAllocator> const>
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::summer_project::limo_info_<ContainerAllocator> >
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
 struct IsFixedSize< ::summer_project::limo_info_<ContainerAllocator> const>
-  : TrueType
+  : FalseType
   { };
 
 template <class ContainerAllocator>
@@ -144,12 +151,12 @@ struct MD5Sum< ::summer_project::limo_info_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "047ef4b8205d6b737a5074a1a08a0dd7";
+    return "d8ca2cf53c0b774c7306231e90ca8a64";
   }
 
   static const char* value(const ::summer_project::limo_info_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x047ef4b8205d6b73ULL;
-  static const uint64_t static_value2 = 0x7a5074a1a08a0dd7ULL;
+  static const uint64_t static_value1 = 0xd8ca2cf53c0b774cULL;
+  static const uint64_t static_value2 = 0x7306231e90ca8a64ULL;
 };
 
 template<class ContainerAllocator>
@@ -172,6 +179,7 @@ struct Definition< ::summer_project::limo_info_<ContainerAllocator> >
 "std_msgs/Float64 mp_dist\n"
 "std_msgs/Float64 origin_dist\n"
 "std_msgs/Float64 vel\n"
+"std_msgs/String path\n"
 "\n"
 "================================================================================\n"
 "MSG: std_msgs/Int64\n"
@@ -179,6 +187,9 @@ struct Definition< ::summer_project::limo_info_<ContainerAllocator> >
 "================================================================================\n"
 "MSG: std_msgs/Float64\n"
 "float64 data\n"
+"================================================================================\n"
+"MSG: std_msgs/String\n"
+"string data\n"
 ;
   }
 
@@ -201,6 +212,7 @@ namespace serialization
       stream.next(m.mp_dist);
       stream.next(m.origin_dist);
       stream.next(m.vel);
+      stream.next(m.path);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -231,6 +243,9 @@ struct Printer< ::summer_project::limo_info_<ContainerAllocator> >
     s << indent << "vel: ";
     s << std::endl;
     Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.vel);
+    s << indent << "path: ";
+    s << std::endl;
+    Printer< ::std_msgs::String_<ContainerAllocator> >::stream(s, indent + "  ", v.path);
   }
 };
 

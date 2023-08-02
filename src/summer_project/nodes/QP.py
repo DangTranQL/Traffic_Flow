@@ -72,9 +72,9 @@ class Robot:
                 if -1 in row:
                     continue
                 else:
-                    d1 = matrix[row_index][3] - matrix[row_index][1]
-                    d2 = state[row_index + 2] - state[0]
-                L = state[row_index + 2]
+                    d1 = matrix[row_index][3]
+                    d2 = state[2]
+                L = state[2] + state[0]
 
                 v0 = matrix[row_index][2]
 

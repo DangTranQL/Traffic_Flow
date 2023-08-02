@@ -16,7 +16,7 @@
 
 (defclass summer_project::limo_info
   :super ros::object
-  :slots (_ID _mp_dist _origin_dist _vel ))
+  :slots (_ID _mp_dist _origin_dist _vel _path ))
 
 (defmethod summer_project::limo_info
   (:init
@@ -25,12 +25,14 @@
     ((:mp_dist __mp_dist) (instance std_msgs::Float64 :init))
     ((:origin_dist __origin_dist) (instance std_msgs::Float64 :init))
     ((:vel __vel) (instance std_msgs::Float64 :init))
+    ((:path __path) (instance std_msgs::String :init))
     )
    (send-super :init)
    (setq _ID __ID)
    (setq _mp_dist __mp_dist)
    (setq _origin_dist __origin_dist)
    (setq _vel __vel)
+   (setq _path __path)
    self)
   (:ID
    (&rest __ID)
@@ -60,6 +62,13 @@
      (progn
        (if __vel (setq _vel (car __vel)))
        _vel)))
+  (:path
+   (&rest __path)
+   (if (keywordp (car __path))
+       (send* _path __path)
+     (progn
+       (if __path (setq _path (car __path)))
+       _path)))
   (:serialization-length
    ()
    (+
@@ -71,6 +80,8 @@
     (send _origin_dist :serialization-length)
     ;; std_msgs/Float64 _vel
     (send _vel :serialization-length)
+    ;; std_msgs/String _path
+    (send _path :serialization-length)
     ))
   (:serialize
    (&optional strm)
@@ -84,6 +95,8 @@
        (send _origin_dist :serialize s)
      ;; std_msgs/Float64 _vel
        (send _vel :serialize s)
+     ;; std_msgs/String _path
+       (send _path :serialize s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -96,17 +109,20 @@
      (send _origin_dist :deserialize buf ptr-) (incf ptr- (send _origin_dist :serialization-length))
    ;; std_msgs/Float64 _vel
      (send _vel :deserialize buf ptr-) (incf ptr- (send _vel :serialization-length))
+   ;; std_msgs/String _path
+     (send _path :deserialize buf ptr-) (incf ptr- (send _path :serialization-length))
    ;;
    self)
   )
 
-(setf (get summer_project::limo_info :md5sum-) "047ef4b8205d6b737a5074a1a08a0dd7")
+(setf (get summer_project::limo_info :md5sum-) "d8ca2cf53c0b774c7306231e90ca8a64")
 (setf (get summer_project::limo_info :datatype-) "summer_project/limo_info")
 (setf (get summer_project::limo_info :definition-)
       "std_msgs/Int64 ID
 std_msgs/Float64 mp_dist
 std_msgs/Float64 origin_dist
 std_msgs/Float64 vel
+std_msgs/String path
 
 ================================================================================
 MSG: std_msgs/Int64
@@ -114,10 +130,14 @@ int64 data
 ================================================================================
 MSG: std_msgs/Float64
 float64 data
+================================================================================
+MSG: std_msgs/String
+string data
+
 ")
 
 
 
-(provide :summer_project/limo_info "047ef4b8205d6b737a5074a1a08a0dd7")
+(provide :summer_project/limo_info "d8ca2cf53c0b774c7306231e90ca8a64")
 
 

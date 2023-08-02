@@ -7,4 +7,6 @@
           ORIGIN_DIST
           VEL-VAL
           VEL
+          PATH-VAL
+          PATH
 ))

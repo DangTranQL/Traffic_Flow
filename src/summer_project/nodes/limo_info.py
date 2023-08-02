@@ -38,6 +38,7 @@ class project_node:
         # self.prev_pos = [0,0]
         self.path_string = 'NONE'
     def task_callb(self, s_msg):
+        global PROJ_NODE_DATA
         # msg = String()
         path_string = ""
         path = s_msg.data
@@ -52,6 +53,9 @@ class project_node:
         path_string += "_" + lane_s
         self.path_string = path_string
         # self.path_str =
+        PROJ_NODE_DATA.path = String("path")
+        self.pub_msg()
+
     def pub_msg(self):
         self.info_pub.publish(PROJ_NODE_DATA)
     def odom_callb(self, msg):

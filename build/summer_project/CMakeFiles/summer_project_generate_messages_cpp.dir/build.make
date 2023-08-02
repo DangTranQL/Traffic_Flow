@@ -61,6 +61,7 @@ summer_project/CMakeFiles/summer_project_generate_messages_cpp: /home/renan/limo
 /home/renan/limo_ws/devel/include/summer_project/limo_info.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/renan/limo_ws/devel/include/summer_project/limo_info.h: /home/renan/limo_ws/src/summer_project/msg/limo_info.msg
 /home/renan/limo_ws/devel/include/summer_project/limo_info.h: /opt/ros/noetic/share/std_msgs/msg/Float64.msg
+/home/renan/limo_ws/devel/include/summer_project/limo_info.h: /opt/ros/noetic/share/std_msgs/msg/String.msg
 /home/renan/limo_ws/devel/include/summer_project/limo_info.h: /opt/ros/noetic/share/std_msgs/msg/Int64.msg
 /home/renan/limo_ws/devel/include/summer_project/limo_info.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/renan/limo_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from summer_project/limo_info.msg"
@@ -68,8 +69,9 @@ summer_project/CMakeFiles/summer_project_generate_messages_cpp: /home/renan/limo
 
 /home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
 /home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /home/renan/limo_ws/src/summer_project/msg/limo_info_array.msg
-/home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /opt/ros/noetic/share/std_msgs/msg/Int64.msg
 /home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /opt/ros/noetic/share/std_msgs/msg/Float64.msg
+/home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /opt/ros/noetic/share/std_msgs/msg/String.msg
+/home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /opt/ros/noetic/share/std_msgs/msg/Int64.msg
 /home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /home/renan/limo_ws/src/summer_project/msg/limo_info.msg
 /home/renan/limo_ws/devel/include/summer_project/limo_info_array.h: /opt/ros/noetic/share/gencpp/msg.h.template
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/renan/limo_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from summer_project/limo_info_array.msg"
