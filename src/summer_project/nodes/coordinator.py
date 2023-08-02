@@ -32,7 +32,8 @@ LIMO_OUTFOS = { # ID : LIST_OF_IDs
 }
 
 out_datas = {
-    789: limo_info_array()
+    789: limo_info_array(),
+    770: limo_info_array()
 }
 for targ in LIMO_OUTFOS.keys():
     for val in LIMO_OUTFOS[targ]:

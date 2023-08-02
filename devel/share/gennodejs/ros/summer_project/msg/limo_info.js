@@ -23,6 +23,8 @@ class limo_info {
       this.mp_dist = null;
       this.origin_dist = null;
       this.vel = null;
+      this.x = null;
+      this.y = null;
       this.path = null;
     }
     else {
@@ -50,6 +52,18 @@ class limo_info {
       else {
         this.vel = new std_msgs.msg.Float64();
       }
+      if (initObj.hasOwnProperty('x')) {
+        this.x = initObj.x
+      }
+      else {
+        this.x = new std_msgs.msg.Float64();
+      }
+      if (initObj.hasOwnProperty('y')) {
+        this.y = initObj.y
+      }
+      else {
+        this.y = new std_msgs.msg.Float64();
+      }
       if (initObj.hasOwnProperty('path')) {
         this.path = initObj.path
       }
@@ -69,6 +83,10 @@ class limo_info {
     bufferOffset = std_msgs.msg.Float64.serialize(obj.origin_dist, buffer, bufferOffset);
     // Serialize message field [vel]
     bufferOffset = std_msgs.msg.Float64.serialize(obj.vel, buffer, bufferOffset);
+    // Serialize message field [x]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.x, buffer, bufferOffset);
+    // Serialize message field [y]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.y, buffer, bufferOffset);
     // Serialize message field [path]
     bufferOffset = std_msgs.msg.String.serialize(obj.path, buffer, bufferOffset);
     return bufferOffset;
@@ -86,6 +104,10 @@ class limo_info {
     data.origin_dist = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     // Deserialize message field [vel]
     data.vel = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [x]
+    data.x = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [y]
+    data.y = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     // Deserialize message field [path]
     data.path = std_msgs.msg.String.deserialize(buffer, bufferOffset);
     return data;
@@ -94,7 +116,7 @@ class limo_info {
   static getMessageSize(object) {
     let length = 0;
     length += std_msgs.msg.String.getMessageSize(object.path);
-    return length + 32;
+    return length + 48;
   }
 
   static datatype() {
@@ -104,7 +126,7 @@ class limo_info {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'd8ca2cf53c0b774c7306231e90ca8a64';
+    return 'a1e7bd1dfe61d3c79d2fdc665d34421b';
   }
 
   static messageDefinition() {
@@ -114,6 +136,8 @@ class limo_info {
     std_msgs/Float64 mp_dist
     std_msgs/Float64 origin_dist
     std_msgs/Float64 vel
+    std_msgs/Float64 x
+    std_msgs/Float64 y
     std_msgs/String path
     
     ================================================================================
@@ -161,6 +185,20 @@ class limo_info {
     }
     else {
       resolved.vel = new std_msgs.msg.Float64()
+    }
+
+    if (msg.x !== undefined) {
+      resolved.x = std_msgs.msg.Float64.Resolve(msg.x)
+    }
+    else {
+      resolved.x = new std_msgs.msg.Float64()
+    }
+
+    if (msg.y !== undefined) {
+      resolved.y = std_msgs.msg.Float64.Resolve(msg.y)
+    }
+    else {
+      resolved.y = new std_msgs.msg.Float64()
     }
 
     if (msg.path !== undefined) {

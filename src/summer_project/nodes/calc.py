@@ -226,39 +226,29 @@ def signed_dist(pos, path, v=1, stop_d = 0.2):
             else:
                 return math.sqrt((x-left_circle[3][1][0])**2 + (y-left_circle[3][1][1])**2) - left_circle[3][0], d, (start_D[0]-x)+circle.arc_length(left_circle[3],turning_pts_left[3],(x,y)), stop, pid[2]
 
-def common_merge(main_robot, others, pos_lst):
+def common_merge(main, others):
+    all_dst = []
     common = []
-    dst = []
-    each_dst = []
-    group_dst = []
     for i in others:
-        common.append([j for j in merging_pts[main_robot] if j in merging_pts[i]])
-    # for pair in common:
-    #     for point in pair:
-    #         for pos in pos_lst:
-    #             if "A" in pos[0] or "C" in pos[0]:
-    #                 each_dst.append(abs(point[1]-pos[1][1]))
-    #             else:
-    #                 each_dst.append(abs(point[0]-pos[1][0]))
-    #     group_dst.append(each_dst)
-    for i in range(pos_lst[1]):
-        # if "A" in pos_lst[0]:
-        #     d_A = pos_lst[0][1][1]-
-        for j in common[i]:
-            if "A" in pos_lst[0][0] or "C" in pos_lst[0][0]:
-                each_dst.append(abs(y-j[1]))
-            else:
-                each_dst.append(abs(x-j[0]))
-            if "A" in pos_lst[1][i][0] or "C" in pos_lst[1][i][0]:
-                each_dst.append(abs(y-j[1]))
-            else:
-                each_dst.append(abs(x-j[0]))
-            group_dst.append(each_dst)
-        dst.append(group_dsts)
+        dst = []
+        for j in merging_pts[i[0]]:
+            if j in merging_pts[main[0]]:
+                if "A" in main[0] or "C" in main[0]:
+                    d_A = abs(main[1][1] - j[1])
+                else:
+                    d_A = abs(main[1][0] - j[0])
+                if "A" in i[0]:
+                    d_O = abs(i[1][1] - j[1])
+                else:
+                    d_O = abs(i[1][0] - j[0])
+                dst.append([d_A, d_O])
+                common.append(j[2])
+        all_dst.append(dst)
+    return all_dst, common
 
-
-    dst.append(group_dst)
-    return dst
+# a, b = common_merge(["straight_A",(0.1,0.2)], [["straight_B", (0.3,0.4)]])
+#
+# print(a)        
 
 
 
@@ -298,10 +288,3 @@ def common_merge(main_robot, others, pos_lst):
 #             distances.append(abs(x-merging_pts[path][0][0]))
 #             distances.append(abs(x-merging_pts[path][1][0]))
 #             distances.append(abs(x-merging_pts[path][2][0]))
-
-# distances = start_to_merging(pos, path)
-
-# def current_to_all_merge():
-#     for i in range(distances.length):
-#         distances[i] -= total_d
-#     return distances

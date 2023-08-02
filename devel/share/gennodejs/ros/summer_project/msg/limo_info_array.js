@@ -71,7 +71,7 @@ class limo_info_array {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '9be91808514d1ee6eb0b3c9e82f377ba';
+    return '0158dec9a13d04c5547357c0652c57cd';
   }
 
   static messageDefinition() {
@@ -85,6 +85,8 @@ class limo_info_array {
     std_msgs/Float64 mp_dist
     std_msgs/Float64 origin_dist
     std_msgs/Float64 vel
+    std_msgs/Float64 x
+    std_msgs/Float64 y
     std_msgs/String path
     
     ================================================================================

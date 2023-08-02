@@ -9,13 +9,15 @@ import struct
 import std_msgs.msg
 
 class limo_info(genpy.Message):
-  _md5sum = "d8ca2cf53c0b774c7306231e90ca8a64"
+  _md5sum = "a1e7bd1dfe61d3c79d2fdc665d34421b"
   _type = "summer_project/limo_info"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """std_msgs/Int64 ID
 std_msgs/Float64 mp_dist
 std_msgs/Float64 origin_dist
 std_msgs/Float64 vel
+std_msgs/Float64 x
+std_msgs/Float64 y
 std_msgs/String path
 
 ================================================================================
@@ -28,8 +30,8 @@ float64 data
 MSG: std_msgs/String
 string data
 """
-  __slots__ = ['ID','mp_dist','origin_dist','vel','path']
-  _slot_types = ['std_msgs/Int64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64','std_msgs/String']
+  __slots__ = ['ID','mp_dist','origin_dist','vel','x','y','path']
+  _slot_types = ['std_msgs/Int64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64','std_msgs/Float64','std_msgs/String']
 
   def __init__(self, *args, **kwds):
     """
@@ -39,7 +41,7 @@ string data
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       ID,mp_dist,origin_dist,vel,path
+       ID,mp_dist,origin_dist,vel,x,y,path
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -56,6 +58,10 @@ string data
         self.origin_dist = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
+      if self.x is None:
+        self.x = std_msgs.msg.Float64()
+      if self.y is None:
+        self.y = std_msgs.msg.Float64()
       if self.path is None:
         self.path = std_msgs.msg.String()
     else:
@@ -63,6 +69,8 @@ string data
       self.mp_dist = std_msgs.msg.Float64()
       self.origin_dist = std_msgs.msg.Float64()
       self.vel = std_msgs.msg.Float64()
+      self.x = std_msgs.msg.Float64()
+      self.y = std_msgs.msg.Float64()
       self.path = std_msgs.msg.String()
 
   def _get_types(self):
@@ -78,7 +86,7 @@ string data
     """
     try:
       _x = self
-      buff.write(_get_struct_q3d().pack(_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data))
+      buff.write(_get_struct_q5d().pack(_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data, _x.x.data, _x.y.data))
       _x = self.path.data
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -104,13 +112,17 @@ string data
         self.origin_dist = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
+      if self.x is None:
+        self.x = std_msgs.msg.Float64()
+      if self.y is None:
+        self.y = std_msgs.msg.Float64()
       if self.path is None:
         self.path = std_msgs.msg.String()
       end = 0
       _x = self
       start = end
-      end += 32
-      (_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data,) = _get_struct_q3d().unpack(str[start:end])
+      end += 48
+      (_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data, _x.x.data, _x.y.data,) = _get_struct_q5d().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -133,7 +145,7 @@ string data
     """
     try:
       _x = self
-      buff.write(_get_struct_q3d().pack(_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data))
+      buff.write(_get_struct_q5d().pack(_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data, _x.x.data, _x.y.data))
       _x = self.path.data
       length = len(_x)
       if python3 or type(_x) == unicode:
@@ -160,13 +172,17 @@ string data
         self.origin_dist = std_msgs.msg.Float64()
       if self.vel is None:
         self.vel = std_msgs.msg.Float64()
+      if self.x is None:
+        self.x = std_msgs.msg.Float64()
+      if self.y is None:
+        self.y = std_msgs.msg.Float64()
       if self.path is None:
         self.path = std_msgs.msg.String()
       end = 0
       _x = self
       start = end
-      end += 32
-      (_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data,) = _get_struct_q3d().unpack(str[start:end])
+      end += 48
+      (_x.ID.data, _x.mp_dist.data, _x.origin_dist.data, _x.vel.data, _x.x.data, _x.y.data,) = _get_struct_q5d().unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -184,9 +200,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_q3d = None
-def _get_struct_q3d():
-    global _struct_q3d
-    if _struct_q3d is None:
-        _struct_q3d = struct.Struct("<q3d")
-    return _struct_q3d
+_struct_q5d = None
+def _get_struct_q5d():
+    global _struct_q5d
+    if _struct_q5d is None:
+        _struct_q5d = struct.Struct("<q5d")
+    return _struct_q5d

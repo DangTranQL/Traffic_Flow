@@ -53,7 +53,7 @@ class project_node:
         path_string += "_" + lane_s
         self.path_string = path_string
         # self.path_str =
-        PROJ_NODE_DATA.path = String("path")
+        PROJ_NODE_DATA.path = String(path_string)
         self.pub_msg()
 
     def pub_msg(self):

@@ -39,33 +39,45 @@ class project_node:
         other_paths = []
         all_positions = [(bot_path, (LIMO_DATA.x.data, LIMO_DATA.y.data)), []]
         QP_rows = []
-        for other_limo_data in OTHER_LIMO_DATA:
+        for other_limo_data in OTHER_LIMO_DATA.limo_infos:
             other_paths.append(other_limo_data.path.data)
             all_positions[1].append((other_limo_data.path.data, (other_limo_data.x.data, other_limo_data.y.data)))
             row = [other_limo_data.ID.data, other_limo_data.origin_dist.data, other_limo_data.vel.data]
             QP_rows.append(row)
-        dst_list = common_merge(bot_path, other_paths, all_positions)
+        dst_list, common = common_merge(bot_path, other_paths, all_positions)
 
         # for
         car1_mp_dists = [origin_dist, v]
         for dsts in dst_list:
             for i, dst in enumerate(dsts[1:]):
                 QP_rows[i].append(dst)
-            car1_mp_dists.append(dsts[0])
+            if len(dsts) != 0:
+                car1_mp_dists.append(dsts[0])
+            else:
+                car1_mp_dists.append(-1)
 
+        qp_mat = np.array(QP_rows)
+        if len(qp_mat) == 0:
+            qp_mat = np.array([[-1,-1,-1,-1]])
+        # print("stuff:")
+        # print(qp_mat)
+        # print('---')
+        # print(car1_mp_dists)
+        # print("\n\n")
 
-        u = self.robot.OCBF_SecondOrderDynamics(1, np.array(
-                    # [
-                    #[ID, origin_distance, velocity, merging distance-origin distance(distance dang is giving us)]
-                        QP_rows
-                        # [-1, -1, -1, -1], # [-1, -1, -1, -1],
-                        # [-1, -1, -1, -1],
-                        # ]
-                        ),
-                        # [origin distance, velocity, remaining distance of car1 to the merging point]
-                        # [origin_dist, v]
-                        car1_mp_dists
-                    )
+        # u = self.robot.OCBF_SecondOrderDynamics(1, np.array(
+        #             # [
+        #             #[ID, origin_distance, velocity, merging distance-origin distance(distance dang is giving us)]
+        #                 QP_rows
+        #                 # [-1, -1, -1, -1], # [-1, -1, -1, -1],
+        #                 # [-1, -1, -1, -1],
+        #                 # ]
+        #                 ),
+        #                 # [origin distance, velocity, remaining distance of car1 to the merging point]
+        #                 # [origin_dist, v]
+        #                 car1_mp_dists
+        #             )
+        u = self.robot.OCBF_SecondOrderDynamics(1, qp_mat, car1_mp_dists)
         # fin_t = rospy.get_time()
         # rospy.loginfo("| {:^-9.4f} |".format(fin_t - start_t))
         # rospy.loginfo(str(v) + str(a))

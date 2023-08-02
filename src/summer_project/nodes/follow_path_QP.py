@@ -215,7 +215,7 @@ if __name__ == '__main__':
 
         e *= 1000
         # rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^3b} | {:^9s} | {:^-9.4f} | {:^-5.3f} | {:^-5.3f} |".format(dt, e, should_stop, gain_string, mp_d, node.x, node.y))
-        rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^-9.4f} | {:^-5.3f} | {:^-5.3f} | {:^-9.4f} |".format(dt, mp_d, path_dist, node.x, node.y, e))
+        # rospy.loginfo("| {:^-9.4f} | {:^-9.4f} | {:^-9.4f} | {:^-5.3f} | {:^-5.3f} | {:^-9.4f} |".format(dt, mp_d, path_dist, node.x, node.y, e))
 
         if node.active:
             a = True

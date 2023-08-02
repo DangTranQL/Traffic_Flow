@@ -19,6 +19,8 @@
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
 #include <std_msgs/Float64.h>
+#include <std_msgs/Float64.h>
+#include <std_msgs/Float64.h>
 #include <std_msgs/String.h>
 
 namespace summer_project
@@ -33,6 +35,8 @@ struct limo_info_
     , mp_dist()
     , origin_dist()
     , vel()
+    , x()
+    , y()
     , path()  {
     }
   limo_info_(const ContainerAllocator& _alloc)
@@ -40,6 +44,8 @@ struct limo_info_
     , mp_dist(_alloc)
     , origin_dist(_alloc)
     , vel(_alloc)
+    , x(_alloc)
+    , y(_alloc)
     , path(_alloc)  {
   (void)_alloc;
     }
@@ -57,6 +63,12 @@ struct limo_info_
 
    typedef  ::std_msgs::Float64_<ContainerAllocator>  _vel_type;
   _vel_type vel;
+
+   typedef  ::std_msgs::Float64_<ContainerAllocator>  _x_type;
+  _x_type x;
+
+   typedef  ::std_msgs::Float64_<ContainerAllocator>  _y_type;
+  _y_type y;
 
    typedef  ::std_msgs::String_<ContainerAllocator>  _path_type;
   _path_type path;
@@ -94,6 +106,8 @@ bool operator==(const ::summer_project::limo_info_<ContainerAllocator1> & lhs, c
     lhs.mp_dist == rhs.mp_dist &&
     lhs.origin_dist == rhs.origin_dist &&
     lhs.vel == rhs.vel &&
+    lhs.x == rhs.x &&
+    lhs.y == rhs.y &&
     lhs.path == rhs.path;
 }
 
@@ -151,12 +165,12 @@ struct MD5Sum< ::summer_project::limo_info_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "d8ca2cf53c0b774c7306231e90ca8a64";
+    return "a1e7bd1dfe61d3c79d2fdc665d34421b";
   }
 
   static const char* value(const ::summer_project::limo_info_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xd8ca2cf53c0b774cULL;
-  static const uint64_t static_value2 = 0x7306231e90ca8a64ULL;
+  static const uint64_t static_value1 = 0xa1e7bd1dfe61d3c7ULL;
+  static const uint64_t static_value2 = 0x9d2fdc665d34421bULL;
 };
 
 template<class ContainerAllocator>
@@ -179,6 +193,8 @@ struct Definition< ::summer_project::limo_info_<ContainerAllocator> >
 "std_msgs/Float64 mp_dist\n"
 "std_msgs/Float64 origin_dist\n"
 "std_msgs/Float64 vel\n"
+"std_msgs/Float64 x\n"
+"std_msgs/Float64 y\n"
 "std_msgs/String path\n"
 "\n"
 "================================================================================\n"
@@ -212,6 +228,8 @@ namespace serialization
       stream.next(m.mp_dist);
       stream.next(m.origin_dist);
       stream.next(m.vel);
+      stream.next(m.x);
+      stream.next(m.y);
       stream.next(m.path);
     }
 
@@ -243,6 +261,12 @@ struct Printer< ::summer_project::limo_info_<ContainerAllocator> >
     s << indent << "vel: ";
     s << std::endl;
     Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.vel);
+    s << indent << "x: ";
+    s << std::endl;
+    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.x);
+    s << indent << "y: ";
+    s << std::endl;
+    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.y);
     s << indent << "path: ";
     s << std::endl;
     Printer< ::std_msgs::String_<ContainerAllocator> >::stream(s, indent + "  ", v.path);
