@@ -10,7 +10,7 @@ import std_msgs.msg
 import summer_project.msg
 
 class limo_info_array(genpy.Message):
-  _md5sum = "b6f153c47b9f49e518bc9a4674db275c"
+  _md5sum = "f7a094a2868f4029471366ef4b0b27b1"
   _type = "summer_project/limo_info_array"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """limo_info[] limo_infos
@@ -18,8 +18,8 @@ class limo_info_array(genpy.Message):
 ================================================================================
 MSG: summer_project/limo_info
 std_msgs/Int64 ID
-std_msgs/Float64 x
-std_msgs/Float64 y
+std_msgs/Float64 mp_dist
+std_msgs/Float64 origin_dist
 std_msgs/Float64 vel
 
 ================================================================================
@@ -71,10 +71,10 @@ float64 data"""
         _v1 = val1.ID
         _x = _v1.data
         buff.write(_get_struct_q().pack(_x))
-        _v2 = val1.x
+        _v2 = val1.mp_dist
         _x = _v2.data
         buff.write(_get_struct_d().pack(_x))
-        _v3 = val1.y
+        _v3 = val1.origin_dist
         _x = _v3.data
         buff.write(_get_struct_d().pack(_x))
         _v4 = val1.vel
@@ -104,11 +104,11 @@ float64 data"""
         start = end
         end += 8
         (_v5.data,) = _get_struct_q().unpack(str[start:end])
-        _v6 = val1.x
+        _v6 = val1.mp_dist
         start = end
         end += 8
         (_v6.data,) = _get_struct_d().unpack(str[start:end])
-        _v7 = val1.y
+        _v7 = val1.origin_dist
         start = end
         end += 8
         (_v7.data,) = _get_struct_d().unpack(str[start:end])
@@ -135,10 +135,10 @@ float64 data"""
         _v9 = val1.ID
         _x = _v9.data
         buff.write(_get_struct_q().pack(_x))
-        _v10 = val1.x
+        _v10 = val1.mp_dist
         _x = _v10.data
         buff.write(_get_struct_d().pack(_x))
-        _v11 = val1.y
+        _v11 = val1.origin_dist
         _x = _v11.data
         buff.write(_get_struct_d().pack(_x))
         _v12 = val1.vel
@@ -169,11 +169,11 @@ float64 data"""
         start = end
         end += 8
         (_v13.data,) = _get_struct_q().unpack(str[start:end])
-        _v14 = val1.x
+        _v14 = val1.mp_dist
         start = end
         end += 8
         (_v14.data,) = _get_struct_d().unpack(str[start:end])
-        _v15 = val1.y
+        _v15 = val1.origin_dist
         start = end
         end += 8
         (_v15.data,) = _get_struct_d().unpack(str[start:end])

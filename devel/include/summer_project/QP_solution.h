@@ -25,17 +25,17 @@ struct QP_solution_
   typedef QP_solution_<ContainerAllocator> Type;
 
   QP_solution_()
-    : v()  {
+    : u()  {
     }
   QP_solution_(const ContainerAllocator& _alloc)
-    : v(_alloc)  {
+    : u(_alloc)  {
   (void)_alloc;
     }
 
 
 
-   typedef  ::std_msgs::Float64_<ContainerAllocator>  _v_type;
-  _v_type v;
+   typedef  ::std_msgs::Float64_<ContainerAllocator>  _u_type;
+  _u_type u;
 
 
 
@@ -66,7 +66,7 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::summer_project::QP_solution_<ContainerAllocator1> & lhs, const ::summer_project::QP_solution_<ContainerAllocator2> & rhs)
 {
-  return lhs.v == rhs.v;
+  return lhs.u == rhs.u;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -123,12 +123,12 @@ struct MD5Sum< ::summer_project::QP_solution_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "004449d08fcee3db1c37ac92b523792c";
+    return "a9be02629cec3211ddab55e654369a74";
   }
 
   static const char* value(const ::summer_project::QP_solution_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x004449d08fcee3dbULL;
-  static const uint64_t static_value2 = 0x1c37ac92b523792cULL;
+  static const uint64_t static_value1 = 0xa9be02629cec3211ULL;
+  static const uint64_t static_value2 = 0xddab55e654369a74ULL;
 };
 
 template<class ContainerAllocator>
@@ -147,7 +147,7 @@ struct Definition< ::summer_project::QP_solution_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "std_msgs/Float64 v\n"
+    return "std_msgs/Float64 u\n"
 "\n"
 "================================================================================\n"
 "MSG: std_msgs/Float64\n"
@@ -170,7 +170,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.v);
+      stream.next(m.u);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -189,9 +189,9 @@ struct Printer< ::summer_project::QP_solution_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::summer_project::QP_solution_<ContainerAllocator>& v)
   {
-    s << indent << "v: ";
+    s << indent << "u: ";
     s << std::endl;
-    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.v);
+    Printer< ::std_msgs::Float64_<ContainerAllocator> >::stream(s, indent + "  ", v.u);
   }
 };
 

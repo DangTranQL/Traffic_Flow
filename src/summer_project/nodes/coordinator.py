@@ -12,7 +12,7 @@ if len(ns) > 1:
     print("=======\n{}\n======".format(ns))
 ns = '/' + ns.strip('/')
 
-LIMO_IDs = [789, 155, 799, 770, 815]
+LIMO_IDs = [789, 770]#[789, 155, 799, 770, 815]
 
 MPs = []
 
@@ -25,7 +25,9 @@ for ID in LIMO_IDs:
 LIMO_INFOS = {}
 LIMO_OUTFOS = { # ID : LIST_OF_IDs
         #i.e.  robot : info needed by robot
-    789:[789, 799, 155, 770, 815]
+    # 789:[789, 799, 155, 770, 815]
+    789:[],
+    770:[789]
     # 155:[155, 789]
 }
 

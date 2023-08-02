@@ -43,13 +43,15 @@ merging_pts = {
     "left_D": [(-0.604, 4.035), (-1.078, 3.468), (-1.72, 2.91), (-1.72, 2.516)]
 }
 
+dist = lambda p0, p1: ((p0[0] - p1[0])**2 + (p0[1] - p1[1])**2)**0.5
+
 def merging_dst(pos, path):
     x,y = pos
     index = ord(path[-1])-65
     if "straight" in path:
         if len(merging_pts[path]) != 0:
             d = math.sqrt((x-merging_pts[path][0][0])**2 + (y-merging_pts[path][0][1])**2)
-            if d <= 0.01:
+            if d <= 0.15:
                 merging_pts[path].pop(0)
         else:
             d=0
@@ -65,7 +67,7 @@ def merging_dst(pos, path):
                 else:
                     d = 0
 
-            if d <= 0.01:
+            if d <= 0.15:
                 merging_pts[path].pop()
         else:
             d = 0
@@ -88,7 +90,19 @@ def merging_dst(pos, path):
             d=0
     return d
 
-def signed_dist(pos, path, stop_d = 0.2):
+previous_pnt = None
+total_d = 0
+
+p = [-0.557,1.314]
+def signed_dist(pos, path, v=1, stop_d = 0.2):
+    global previous_pnt
+    global total_d
+    if previous_pnt is None:
+        previous_pnt = pos
+    if dist(previous_pnt, pos) < 0.01:
+        v = 0
+    # if v != 0:
+        # pos = previous_pnt
     x,y = pos
     stop = False
     pid = ["straight", "right", "left"]
@@ -96,102 +110,167 @@ def signed_dist(pos, path, stop_d = 0.2):
     d = merging_dst(pos, path)
     # except ValueError:
     #     d = 1e9
-
     if path == "straight_A":
         if abs(y-border[2][1]) <= stop_d:
             stop = True
-        return x - turning_pts_right[0][0], d, stop, pid[0]
+        if v != 0:
+            total_d += (y - previous_pnt[1])
+        # return x - turning_pts_right[0][0], d, total_d, stop, pid[0]
+        return x - turning_pts_right[0][0], d, y-p[1], stop, pid[0]
     elif path == "straight_B":
         if abs(x-border[3][0]) <= stop_d:
             stop = True
-        return -(y - turning_pts_right[1][1]), d, stop, pid[0]
+        if v != 0:
+            total_d += (x - previous_pnt[0])
+        return -(y - turning_pts_right[1][1]), d, total_d, stop, pid[0]
     elif path == "straight_C":
         if abs(y-border[0][1]) <= stop_d:
             stop = True
-        return -(x - turning_pts_right[2][0]), d, stop, pid[0]
+        if v != 0:
+            total_d += (y - previous_pnt[1])
+        return -(x - turning_pts_right[2][0]), d, total_d, stop, pid[0]
     elif path == "straight_D":
         if abs(x-border[1][0]) <= stop_d:
             stop = True
-        return y - turning_pts_right[3][1], d, stop, pid[0]
+        if v != 0:
+            total_d += (x - previous_pnt[0])
+        return y - turning_pts_right[3][1], d, total_d, stop, pid[0]
 
     elif path == "right_A":
         if abs(x-border[3][0]) <= stop_d:
             stop = True
         if y < turning_pts_right[0][1]:
-            return x - turning_pts_right[0][0], d, stop, pid[0]
+            if v != 0:
+                total_d += (y - previous_pnt[1])
+            return x - turning_pts_right[0][0], d, total_d, stop, pid[0]
         else:
             if x > right[0][0]:
-                return -(y - right[0][1]), d, stop, pid[0]
+                if v != 0:
+                    total_d += (x - previous_pnt[0])
+                return -(y - right[0][1]), d, total_d, stop, pid[0]
             else:
-                return -(math.sqrt((x-right_circle[0][1][0])**2 + (y-right_circle[0][1][1])**2) - right_circle[0][0]), d, stop, pid[1]
+                curve = circle.arc_length(right_circle[0], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return -(math.sqrt((x-right_circle[0][1][0])**2 + (y-right_circle[0][1][1])**2) - right_circle[0][0]), d, total_d, stop, pid[1]
     elif path == "right_B":
         if abs(y-border[0][1]) <= stop_d:
             stop = True
         if x < turning_pts_right[1][0]:
-            return -(y - turning_pts_right[1][1]), d, stop, pid[0]
+            if v != 0:
+                total_d += (x-previous_pnt[0])
+            return -(y - turning_pts_right[1][1]), d, total_d, stop, pid[0]
         else:
             if y < right[1][1]:
-                return -(x - right[1][0]), d, stop, pid[0]
+                if v != 0:
+                    total_d += (y - previous_pnt[1])
+                return -(x - right[1][0]), d, total_d, stop, pid[0]
             else:
-                return -(math.sqrt((x-right_circle[1][1][0])**2 + (y-right_circle[1][1][1])**2) - right_circle[1][0]), d, stop, pid[1]
+                curve = circle.arc_length(right_circle[1], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return -(math.sqrt((x-right_circle[1][1][0])**2 + (y-right_circle[1][1][1])**2) - right_circle[1][0]), d, total_d, stop, pid[1]
     elif path == "right_C":
         if abs(x-border[1][0]) <= stop_d:
             stop = True
         if y > turning_pts_right[2][1]:
-            return -(x - turning_pts_right[2][0]), d, stop, pid[0]
+            total_d += (y - previous_pnt[1])
+            return -(x - turning_pts_right[2][0]), d, total_d, stop, pid[0]
         else:
             if x < right[2][0]:
-                return (y - right[2][1]), d, stop, pid[0]
+                if v != 0:
+                    total_d += (x - previous_pnt[0])
+                return (y - right[2][1]), d, total_d, stop, pid[0]
             else:
-                return -(math.sqrt((x-right_circle[2][1][0])**2 + (y-right_circle[2][1][1])**2) - right_circle[2][0]), d, stop, pid[1]
+                curve = circle.arc_length(right_circle[2], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return -(math.sqrt((x-right_circle[2][1][0])**2 + (y-right_circle[2][1][1])**2) - right_circle[2][0]), d, total_d, stop, pid[1]
     elif path == "right_D":
         if abs(y-border[2][1]) <= stop_d:
             stop = True
         if x > turning_pts_right[3][0]:
-            return y - turning_pts_right[3][1], d, stop, pid[0]
+            if v != 0:
+                total_d += (x-previous_pnt[0])
+            return y - turning_pts_right[3][1], d, total_d, stop, pid[0]
         else:
             if y > right[3][1]:
-                return x - right[3][0], d, stop, pid[0]
+                if v != 0:
+                    total_d += (y - previous_pnt[1])
+                return x - right[3][0], d, total_d, stop, pid[0]
             else:
-                return -(math.sqrt((x-right_circle[3][1][0])**2 + (y-right_circle[3][1][1])**2) - right_circle[3][0]), d, stop, pid[1]
+                curve = circle.arc_length(right_circle[3], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return -(math.sqrt((x-right_circle[3][1][0])**2 + (y-right_circle[3][1][1])**2) - right_circle[3][0]), d, total_d, stop, pid[1]
 
     elif path == "left_A":
         if abs(x-border[1][0]) <= stop_d:
             stop = True
         if y < turning_pts_left[0][1]:
-            return x - turning_pts_left[0][0], d, stop, pid[0]
+            if v != 0:
+                total_d += (y-previous_pnt[1])
+            return x - turning_pts_left[0][0], d, total_d, stop, pid[0]
         else:
             if x < left[0][0]:
-                return y - left[0][1], d, stop, pid[0]
+                if v != 0:
+                    total_d += (x-previous_pnt[0])
+                return y - left[0][1], d,total_d, stop, pid[0]
             else:
-                return math.sqrt((x-left_circle[0][1][0])**2 + (y-left_circle[0][1][1])**2) - left_circle[0][0], d, stop, pid[2]
+                curve = circle.arc_length(left_circle[0], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return math.sqrt((x-left_circle[0][1][0])**2 + (y-left_circle[0][1][1])**2) - left_circle[0][0], d, total_d, stop, pid[2]
     elif path == "left_B":
         if abs(y-border[2][1]) <= stop_d:
             stop = True
         if x < turning_pts_left[1][0]:
-            return -(y - turning_pts_left[1][1]), d, stop, pid[0]
+            if v != 0:
+                total_d += (x-previous_pnt[0])
+            return -(y - turning_pts_left[1][1]), d, total_d, stop, pid[0]
         else:
             if y > left[1][1]:
-                return x - left[1][0], d, stop, pid[0]
+                if v != 0:
+                    total_d += (y-previous_pnt[1])
+                return x - left[1][0], d, total_d, stop, pid[0]
             else:
-                return math.sqrt((x-left_circle[1][1][0])**2 + (y-left_circle[1][1][1])**2) - left_circle[1][0], d, stop, pid[2]
+                curve = circle.arc_length(left_circle[1], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return math.sqrt((x-left_circle[1][1][0])**2 + (y-left_circle[1][1][1])**2) - left_circle[1][0], d, total_d, stop, pid[2]
     elif path == "left_C":
         if abs(x-border[3][0]) <= stop_d:
             stop = True
         if y > turning_pts_left[2][1]:
-            return -(x - turning_pts_left[2][0]), d, stop, pid[0]
+            if v != 0:
+                total_d += (y-previous_pnt[1])
+            return -(x - turning_pts_left[2][0]), d, total_d, stop, pid[0]
         else:
             if x > left[2][0]:
-                return -(y - left[2][1]), d, stop, pid[0]
+                if v != 0:
+                    total_d += (x-previous_pnt[0])
+                return -(y - left[2][1]), d, total_d, stop, pid[0]
             else:
-                return math.sqrt((x-left_circle[2][1][0])**2 + (y-left_circle[2][1][1])**2) - left_circle[2][0], d, stop, pid[2]
+                curve = circle.arc_length(left_circle[2], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return math.sqrt((x-left_circle[2][1][0])**2 + (y-left_circle[2][1][1])**2) - left_circle[2][0], d, total_d, stop, pid[2]
     elif path == "left_D":
         if abs(y-border[0][1]) <= stop_d:
             stop = True
         if x > turning_pts_left[3][0]:
+            if v != 0:
+                total_d += (x-previous_pnt[0])
             return y - turning_pts_left[3][1], d, stop, pid[0]
         else:
             if y < left[3][1]:
+                if v != 0:
+                    total_d += (y-previous_pnt[1])
                 return -(x - left[3][0]), d, stop, pid[0]
             else:
-                return math.sqrt((x-left_circle[3][1][0])**2 + (y-left_circle[3][1][1])**2) - left_circle[3][0], d, stop, pid[2]
+                curve = circle.arc_length(left_circle[3], previous_pnt, pos)
+                if v != 0:
+                    total_d += curve
+                return math.sqrt((x-left_circle[3][1][0])**2 + (y-left_circle[3][1][1])**2) - left_circle[3][0], d, total_d, stop, pid[2]
+    # if v == 0:
+    previous_pnt = pos

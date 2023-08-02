@@ -19,22 +19,22 @@ class QP_solution {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.v = null;
+      this.u = null;
     }
     else {
-      if (initObj.hasOwnProperty('v')) {
-        this.v = initObj.v
+      if (initObj.hasOwnProperty('u')) {
+        this.u = initObj.u
       }
       else {
-        this.v = new std_msgs.msg.Float64();
+        this.u = new std_msgs.msg.Float64();
       }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type QP_solution
-    // Serialize message field [v]
-    bufferOffset = std_msgs.msg.Float64.serialize(obj.v, buffer, bufferOffset);
+    // Serialize message field [u]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.u, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -42,8 +42,8 @@ class QP_solution {
     //deserializes a message object of type QP_solution
     let len;
     let data = new QP_solution(null);
-    // Deserialize message field [v]
-    data.v = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [u]
+    data.u = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     return data;
   }
 
@@ -58,13 +58,13 @@ class QP_solution {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '004449d08fcee3db1c37ac92b523792c';
+    return 'a9be02629cec3211ddab55e654369a74';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    std_msgs/Float64 v
+    std_msgs/Float64 u
     
     ================================================================================
     MSG: std_msgs/Float64
@@ -78,11 +78,11 @@ class QP_solution {
       msg = {};
     }
     const resolved = new QP_solution(null);
-    if (msg.v !== undefined) {
-      resolved.v = std_msgs.msg.Float64.Resolve(msg.v)
+    if (msg.u !== undefined) {
+      resolved.u = std_msgs.msg.Float64.Resolve(msg.u)
     }
     else {
-      resolved.v = new std_msgs.msg.Float64()
+      resolved.u = new std_msgs.msg.Float64()
     }
 
     return resolved;

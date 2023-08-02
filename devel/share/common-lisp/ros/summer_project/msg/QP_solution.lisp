@@ -7,9 +7,9 @@
 ;//! \htmlinclude QP_solution.msg.html
 
 (cl:defclass <QP_solution> (roslisp-msg-protocol:ros-message)
-  ((v
-    :reader v
-    :initarg :v
+  ((u
+    :reader u
+    :initarg :u
     :type std_msgs-msg:Float64
     :initform (cl:make-instance 'std_msgs-msg:Float64)))
 )
@@ -22,17 +22,17 @@
   (cl:unless (cl:typep m 'QP_solution)
     (roslisp-msg-protocol:msg-deprecation-warning "using old message class name summer_project-msg:<QP_solution> is deprecated: use summer_project-msg:QP_solution instead.")))
 
-(cl:ensure-generic-function 'v-val :lambda-list '(m))
-(cl:defmethod v-val ((m <QP_solution>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:v-val is deprecated.  Use summer_project-msg:v instead.")
-  (v m))
+(cl:ensure-generic-function 'u-val :lambda-list '(m))
+(cl:defmethod u-val ((m <QP_solution>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:u-val is deprecated.  Use summer_project-msg:u instead.")
+  (u m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <QP_solution>) ostream)
   "Serializes a message object of type '<QP_solution>"
-  (roslisp-msg-protocol:serialize (cl:slot-value msg 'v) ostream)
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'u) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <QP_solution>) istream)
   "Deserializes a message object of type '<QP_solution>"
-  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'v) istream)
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'u) istream)
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<QP_solution>)))
@@ -43,22 +43,22 @@
   "summer_project/QP_solution")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<QP_solution>)))
   "Returns md5sum for a message object of type '<QP_solution>"
-  "004449d08fcee3db1c37ac92b523792c")
+  "a9be02629cec3211ddab55e654369a74")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'QP_solution)))
   "Returns md5sum for a message object of type 'QP_solution"
-  "004449d08fcee3db1c37ac92b523792c")
+  "a9be02629cec3211ddab55e654369a74")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<QP_solution>)))
   "Returns full string definition for message of type '<QP_solution>"
-  (cl:format cl:nil "std_msgs/Float64 v~%~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
+  (cl:format cl:nil "std_msgs/Float64 u~%~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'QP_solution)))
   "Returns full string definition for message of type 'QP_solution"
-  (cl:format cl:nil "std_msgs/Float64 v~%~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
+  (cl:format cl:nil "std_msgs/Float64 u~%~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <QP_solution>))
   (cl:+ 0
-     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'v))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'u))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <QP_solution>))
   "Converts a ROS message object to a list"
   (cl:list 'QP_solution
-    (cl:cons ':v (v msg))
+    (cl:cons ':u (u msg))
 ))

@@ -1,10 +1,10 @@
 (cl:in-package summer_project-msg)
 (cl:export '(ID-VAL
           ID
-          X-VAL
-          X
-          Y-VAL
-          Y
+          MP_DIST-VAL
+          MP_DIST
+          ORIGIN_DIST-VAL
+          ORIGIN_DIST
           VEL-VAL
           VEL
 ))

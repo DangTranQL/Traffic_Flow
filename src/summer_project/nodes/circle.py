@@ -61,7 +61,7 @@ def arc_length(circle, a, b):
   # print(r)
   # print("\nb:")
   # print(b)
-  print(1-(d**2)/(2*(r**2)))
+  # print(1-(d**2)/(2*(r**2)))
   theta = math.acos(1-(d**2)/(2*(r**2)))
   return r*theta
 

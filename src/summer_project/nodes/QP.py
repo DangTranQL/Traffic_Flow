@@ -123,17 +123,19 @@ class Robot:
 
             return dx
 
-        u = (solveQP(2),)
-        x = np.zeros(2)
-        t_start = 0
-        t_end = 0.1
-        t_span = (t_start, t_end)
-
-        solution = odeint(second_order_model, x0[0:2], t_span, args=u)
-
-        rt = [solution[-1][0], solution[-1][1]]
-        # print(rt)
-        return rt#, vd
+        # u = (solveQP(2),)
+        u_final= solveQP(2)
+        return u_final
+        # x = np.zeros(2)
+        # t_start = 0
+        # t_end = 0.1
+        # t_span = (t_start, t_end)
+        #
+        # solution = odeint(second_order_model, x0[0:2], t_span, args=u)
+        #
+        # rt = [solution[-1][0], solution[-1][1]]
+        # # print(rt)
+        # return rt#, vd
 
 
 

@@ -20,8 +20,8 @@ class limo_info {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.ID = null;
-      this.x = null;
-      this.y = null;
+      this.mp_dist = null;
+      this.origin_dist = null;
       this.vel = null;
     }
     else {
@@ -31,17 +31,17 @@ class limo_info {
       else {
         this.ID = new std_msgs.msg.Int64();
       }
-      if (initObj.hasOwnProperty('x')) {
-        this.x = initObj.x
+      if (initObj.hasOwnProperty('mp_dist')) {
+        this.mp_dist = initObj.mp_dist
       }
       else {
-        this.x = new std_msgs.msg.Float64();
+        this.mp_dist = new std_msgs.msg.Float64();
       }
-      if (initObj.hasOwnProperty('y')) {
-        this.y = initObj.y
+      if (initObj.hasOwnProperty('origin_dist')) {
+        this.origin_dist = initObj.origin_dist
       }
       else {
-        this.y = new std_msgs.msg.Float64();
+        this.origin_dist = new std_msgs.msg.Float64();
       }
       if (initObj.hasOwnProperty('vel')) {
         this.vel = initObj.vel
@@ -56,10 +56,10 @@ class limo_info {
     // Serializes a message object of type limo_info
     // Serialize message field [ID]
     bufferOffset = std_msgs.msg.Int64.serialize(obj.ID, buffer, bufferOffset);
-    // Serialize message field [x]
-    bufferOffset = std_msgs.msg.Float64.serialize(obj.x, buffer, bufferOffset);
-    // Serialize message field [y]
-    bufferOffset = std_msgs.msg.Float64.serialize(obj.y, buffer, bufferOffset);
+    // Serialize message field [mp_dist]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.mp_dist, buffer, bufferOffset);
+    // Serialize message field [origin_dist]
+    bufferOffset = std_msgs.msg.Float64.serialize(obj.origin_dist, buffer, bufferOffset);
     // Serialize message field [vel]
     bufferOffset = std_msgs.msg.Float64.serialize(obj.vel, buffer, bufferOffset);
     return bufferOffset;
@@ -71,10 +71,10 @@ class limo_info {
     let data = new limo_info(null);
     // Deserialize message field [ID]
     data.ID = std_msgs.msg.Int64.deserialize(buffer, bufferOffset);
-    // Deserialize message field [x]
-    data.x = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
-    // Deserialize message field [y]
-    data.y = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [mp_dist]
+    data.mp_dist = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
+    // Deserialize message field [origin_dist]
+    data.origin_dist = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     // Deserialize message field [vel]
     data.vel = std_msgs.msg.Float64.deserialize(buffer, bufferOffset);
     return data;
@@ -91,15 +91,15 @@ class limo_info {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '17b3f4eca66f36408d5e8a3e901190f6';
+    return '047ef4b8205d6b737a5074a1a08a0dd7';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     std_msgs/Int64 ID
-    std_msgs/Float64 x
-    std_msgs/Float64 y
+    std_msgs/Float64 mp_dist
+    std_msgs/Float64 origin_dist
     std_msgs/Float64 vel
     
     ================================================================================
@@ -124,18 +124,18 @@ class limo_info {
       resolved.ID = new std_msgs.msg.Int64()
     }
 
-    if (msg.x !== undefined) {
-      resolved.x = std_msgs.msg.Float64.Resolve(msg.x)
+    if (msg.mp_dist !== undefined) {
+      resolved.mp_dist = std_msgs.msg.Float64.Resolve(msg.mp_dist)
     }
     else {
-      resolved.x = new std_msgs.msg.Float64()
+      resolved.mp_dist = new std_msgs.msg.Float64()
     }
 
-    if (msg.y !== undefined) {
-      resolved.y = std_msgs.msg.Float64.Resolve(msg.y)
+    if (msg.origin_dist !== undefined) {
+      resolved.origin_dist = std_msgs.msg.Float64.Resolve(msg.origin_dist)
     }
     else {
-      resolved.y = new std_msgs.msg.Float64()
+      resolved.origin_dist = new std_msgs.msg.Float64()
     }
 
     if (msg.vel !== undefined) {

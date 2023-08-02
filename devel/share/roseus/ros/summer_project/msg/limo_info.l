@@ -16,20 +16,20 @@
 
 (defclass summer_project::limo_info
   :super ros::object
-  :slots (_ID _x _y _vel ))
+  :slots (_ID _mp_dist _origin_dist _vel ))
 
 (defmethod summer_project::limo_info
   (:init
    (&key
     ((:ID __ID) (instance std_msgs::Int64 :init))
-    ((:x __x) (instance std_msgs::Float64 :init))
-    ((:y __y) (instance std_msgs::Float64 :init))
+    ((:mp_dist __mp_dist) (instance std_msgs::Float64 :init))
+    ((:origin_dist __origin_dist) (instance std_msgs::Float64 :init))
     ((:vel __vel) (instance std_msgs::Float64 :init))
     )
    (send-super :init)
    (setq _ID __ID)
-   (setq _x __x)
-   (setq _y __y)
+   (setq _mp_dist __mp_dist)
+   (setq _origin_dist __origin_dist)
    (setq _vel __vel)
    self)
   (:ID
@@ -39,20 +39,20 @@
      (progn
        (if __ID (setq _ID (car __ID)))
        _ID)))
-  (:x
-   (&rest __x)
-   (if (keywordp (car __x))
-       (send* _x __x)
+  (:mp_dist
+   (&rest __mp_dist)
+   (if (keywordp (car __mp_dist))
+       (send* _mp_dist __mp_dist)
      (progn
-       (if __x (setq _x (car __x)))
-       _x)))
-  (:y
-   (&rest __y)
-   (if (keywordp (car __y))
-       (send* _y __y)
+       (if __mp_dist (setq _mp_dist (car __mp_dist)))
+       _mp_dist)))
+  (:origin_dist
+   (&rest __origin_dist)
+   (if (keywordp (car __origin_dist))
+       (send* _origin_dist __origin_dist)
      (progn
-       (if __y (setq _y (car __y)))
-       _y)))
+       (if __origin_dist (setq _origin_dist (car __origin_dist)))
+       _origin_dist)))
   (:vel
    (&rest __vel)
    (if (keywordp (car __vel))
@@ -65,10 +65,10 @@
    (+
     ;; std_msgs/Int64 _ID
     (send _ID :serialization-length)
-    ;; std_msgs/Float64 _x
-    (send _x :serialization-length)
-    ;; std_msgs/Float64 _y
-    (send _y :serialization-length)
+    ;; std_msgs/Float64 _mp_dist
+    (send _mp_dist :serialization-length)
+    ;; std_msgs/Float64 _origin_dist
+    (send _origin_dist :serialization-length)
     ;; std_msgs/Float64 _vel
     (send _vel :serialization-length)
     ))
@@ -78,10 +78,10 @@
               (make-string-output-stream (send self :serialization-length)))))
      ;; std_msgs/Int64 _ID
        (send _ID :serialize s)
-     ;; std_msgs/Float64 _x
-       (send _x :serialize s)
-     ;; std_msgs/Float64 _y
-       (send _y :serialize s)
+     ;; std_msgs/Float64 _mp_dist
+       (send _mp_dist :serialize s)
+     ;; std_msgs/Float64 _origin_dist
+       (send _origin_dist :serialize s)
      ;; std_msgs/Float64 _vel
        (send _vel :serialize s)
      ;;
@@ -90,22 +90,22 @@
    (buf &optional (ptr- 0))
    ;; std_msgs/Int64 _ID
      (send _ID :deserialize buf ptr-) (incf ptr- (send _ID :serialization-length))
-   ;; std_msgs/Float64 _x
-     (send _x :deserialize buf ptr-) (incf ptr- (send _x :serialization-length))
-   ;; std_msgs/Float64 _y
-     (send _y :deserialize buf ptr-) (incf ptr- (send _y :serialization-length))
+   ;; std_msgs/Float64 _mp_dist
+     (send _mp_dist :deserialize buf ptr-) (incf ptr- (send _mp_dist :serialization-length))
+   ;; std_msgs/Float64 _origin_dist
+     (send _origin_dist :deserialize buf ptr-) (incf ptr- (send _origin_dist :serialization-length))
    ;; std_msgs/Float64 _vel
      (send _vel :deserialize buf ptr-) (incf ptr- (send _vel :serialization-length))
    ;;
    self)
   )
 
-(setf (get summer_project::limo_info :md5sum-) "17b3f4eca66f36408d5e8a3e901190f6")
+(setf (get summer_project::limo_info :md5sum-) "047ef4b8205d6b737a5074a1a08a0dd7")
 (setf (get summer_project::limo_info :datatype-) "summer_project/limo_info")
 (setf (get summer_project::limo_info :definition-)
       "std_msgs/Int64 ID
-std_msgs/Float64 x
-std_msgs/Float64 y
+std_msgs/Float64 mp_dist
+std_msgs/Float64 origin_dist
 std_msgs/Float64 vel
 
 ================================================================================
@@ -118,6 +118,6 @@ float64 data
 
 
 
-(provide :summer_project/limo_info "17b3f4eca66f36408d5e8a3e901190f6")
+(provide :summer_project/limo_info "047ef4b8205d6b737a5074a1a08a0dd7")
 
 

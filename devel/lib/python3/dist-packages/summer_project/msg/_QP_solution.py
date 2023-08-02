@@ -9,15 +9,15 @@ import struct
 import std_msgs.msg
 
 class QP_solution(genpy.Message):
-  _md5sum = "004449d08fcee3db1c37ac92b523792c"
+  _md5sum = "a9be02629cec3211ddab55e654369a74"
   _type = "summer_project/QP_solution"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """std_msgs/Float64 v
+  _full_text = """std_msgs/Float64 u
 
 ================================================================================
 MSG: std_msgs/Float64
 float64 data"""
-  __slots__ = ['v']
+  __slots__ = ['u']
   _slot_types = ['std_msgs/Float64']
 
   def __init__(self, *args, **kwds):
@@ -28,7 +28,7 @@ float64 data"""
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       v
+       u
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -37,10 +37,10 @@ float64 data"""
     if args or kwds:
       super(QP_solution, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.v is None:
-        self.v = std_msgs.msg.Float64()
+      if self.u is None:
+        self.u = std_msgs.msg.Float64()
     else:
-      self.v = std_msgs.msg.Float64()
+      self.u = std_msgs.msg.Float64()
 
   def _get_types(self):
     """
@@ -54,7 +54,7 @@ float64 data"""
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.v.data
+      _x = self.u.data
       buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -67,12 +67,12 @@ float64 data"""
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.v is None:
-        self.v = std_msgs.msg.Float64()
+      if self.u is None:
+        self.u = std_msgs.msg.Float64()
       end = 0
       start = end
       end += 8
-      (self.v.data,) = _get_struct_d().unpack(str[start:end])
+      (self.u.data,) = _get_struct_d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -85,7 +85,7 @@ float64 data"""
     :param numpy: numpy python module
     """
     try:
-      _x = self.v.data
+      _x = self.u.data
       buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
@@ -99,12 +99,12 @@ float64 data"""
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.v is None:
-        self.v = std_msgs.msg.Float64()
+      if self.u is None:
+        self.u = std_msgs.msg.Float64()
       end = 0
       start = end
       end += 8
-      (self.v.data,) = _get_struct_d().unpack(str[start:end])
+      (self.u.data,) = _get_struct_d().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
