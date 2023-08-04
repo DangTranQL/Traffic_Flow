@@ -161,7 +161,7 @@ def signed_dist(pos, path, v=1, stop_d = 0.2):
             return -(y - turning_pts_right[1][1]), d, x-start_B[0], stop, pid[0]
         else:
             if y < right[1][1]:
-                return -(x - right[1][0]), d, total_d, (turning_pts_right[1][0]-start_B[0])+circle.arc_length(right_circle[1],turning_pts_right[1],right[1])+(right[1][1]-y), stop, pid[0]
+                return -(x - right[1][0]), d, (turning_pts_right[1][0]-start_B[0])+circle.arc_length(right_circle[1],turning_pts_right[1],right[1])+(right[1][1]-y), stop, pid[0]
             else:
                 return -(math.sqrt((x-right_circle[1][1][0])**2 + (y-right_circle[1][1][1])**2) - right_circle[1][0]), d, (turning_pts_right[1][0]-start_B[0])+circle.arc_length(right_circle[1],turning_pts_right[1],right[1]), stop, pid[1]
     elif path == "right_C":
@@ -219,7 +219,7 @@ def signed_dist(pos, path, v=1, stop_d = 0.2):
         if abs(y-border[0][1]) <= stop_d:
             stop = True
         if x > turning_pts_left[3][0]:
-            return y - turning_pts_left[3][1], start_D[0]-x, stop, pid[0]
+            return y - turning_pts_left[3][1], d, start_D[0]-x, stop, pid[0]
         else:
             if y < left[3][1]:
                 return -(x - left[3][0]), d, (start_D[0]-x)+circle.arc_length(left_circle[3],turning_pts_left[3],(x,y))+(left[3][1]-y), stop, pid[0]
@@ -228,29 +228,54 @@ def signed_dist(pos, path, v=1, stop_d = 0.2):
 
 def common_merge(main, others):
     all_dst = []
-    common = []
     for i in others:
         dst = []
+        k = 0
+        # print(i)
         for j in merging_pts[i[0]]:
             if j in merging_pts[main[0]]:
-                if "A" in main[0] or "C" in main[0]:
-                    d_A = abs(main[1][1] - j[1])
-                else:
-                    d_A = abs(main[1][0] - j[0])
+                # print(i)
+                k += 1
+                if "A" in main[0]:
+                    d2 = j[1] - main[2][1]
+                # elif "C" in main[0]:
+                #     d2 = j[1] - main[2][1]
+                elif "B" in main[0]:
+                    # a = j[0]
+                    # b = main
+                    d2 = j[0] - main[2][0]
+                # else:
+                #     d2 = main
+
                 if "A" in i[0]:
-                    d_O = abs(i[1][1] - j[1])
-                else:
-                    d_O = abs(i[1][0] - j[0])
-                dst.append([d_A, d_O])
-                common.append(j[2])
-        all_dst.append(dst)
-    return all_dst, common
+                    d1 = j[1] - i[2][1]
+                elif "B" in i[0]:
+                    d1 = j[0] - i[2][0]
+                if d2 >= 0:# and d2 >= d1:
+                    dst.append([i[1], d2, d1 + 0.255,i[3]])
+        if len(dst) != 0:
+            all_dst.append(dst)
 
-# a, b = common_merge(["straight_A",(0.1,0.2)], [["straight_B", (0.3,0.4)]])
-#
-# print(a)        
+    return all_dst
 
 
+# def d2_d1(common_dst):
+#     # d2 = []
+#     # d1 = []
+#     d = []
+#     for i in common_dst:
+#         for j in i:
+#             # d2.append(j[0])
+#             # d1.append(j[1])
+#             d.append([j[0], j[1]])
+#     return d
+
+if __name__ == "__main__":
+    a = common_merge(["straight_A",700,(0.1,0.4),0.6], [["straight_B", 123, (0.3,0.4), 0.7]])
+    print(a)
+# print(b)
+# d = d2_d1(a)
+# print(d)
 
 # def start_to_merging(pos, path):
 #     index = ord(path[-1])-65
@@ -288,3 +313,10 @@ def common_merge(main, others):
 #             distances.append(abs(x-merging_pts[path][0][0]))
 #             distances.append(abs(x-merging_pts[path][1][0]))
 #             distances.append(abs(x-merging_pts[path][2][0]))
+
+# distances = start_to_merging(pos, path)
+
+# def current_to_all_merge():
+#     for i in range(distances.length):
+#         distances[i] -= total_d
+#     return distances

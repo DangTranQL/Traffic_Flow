@@ -24,11 +24,10 @@ class Robot:
         eps = 10
         psc = 0.1
         t = 0.1 * i
-        # t = dt
 
         # reference Trajectory
         vd = 0.5 * c[0] * t ** 2 + c[1] * t + c[2]
-        u_ref = 0#c[0] * t + c[1]
+        u_ref = c[0] * t + c[1]
 
         # Physical Limitations on velocity
         b_vmax = self.v_max - x0[1]
@@ -119,14 +118,14 @@ class Robot:
 
             return dx
 
-        # u, A, b = solveQP()
-        u = solveQP()
+        u, A, b = solveQP()
+        # u = solveQP()
         if u is not None:
             # Au = np.array(A)@(np.array(u).T)
             # Au_b = Au + np.array(b)
             return u[0]#, Au_b[-1]
         else:
-            return None
+            return None, 0
         # x = np.zeros(2)
         # t_start = 0
         # t_end = 0.1

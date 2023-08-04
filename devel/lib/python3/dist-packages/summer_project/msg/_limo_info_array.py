@@ -10,7 +10,7 @@ import std_msgs.msg
 import summer_project.msg
 
 class limo_info_array(genpy.Message):
-  _md5sum = "0158dec9a13d04c5547357c0652c57cd"
+  _md5sum = "053fded398d0eae04d5110e91390f4be"
   _type = "summer_project/limo_info_array"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """limo_info[] limo_infos
@@ -18,12 +18,15 @@ class limo_info_array(genpy.Message):
 ================================================================================
 MSG: summer_project/limo_info
 std_msgs/Int64 ID
-std_msgs/Float64 mp_dist
-std_msgs/Float64 origin_dist
 std_msgs/Float64 vel
 std_msgs/Float64 x
 std_msgs/Float64 y
+std_msgs/Float64 mp_dist
+std_msgs/Float64 origin_dist
 std_msgs/String path
+
+std_msgs/Float64 d1
+std_msgs/Float64 d2
 
 ================================================================================
 MSG: std_msgs/Int64
@@ -78,19 +81,19 @@ string data
         _v1 = val1.ID
         _x = _v1.data
         buff.write(_get_struct_q().pack(_x))
-        _v2 = val1.mp_dist
+        _v2 = val1.vel
         _x = _v2.data
         buff.write(_get_struct_d().pack(_x))
-        _v3 = val1.origin_dist
+        _v3 = val1.x
         _x = _v3.data
         buff.write(_get_struct_d().pack(_x))
-        _v4 = val1.vel
+        _v4 = val1.y
         _x = _v4.data
         buff.write(_get_struct_d().pack(_x))
-        _v5 = val1.x
+        _v5 = val1.mp_dist
         _x = _v5.data
         buff.write(_get_struct_d().pack(_x))
-        _v6 = val1.y
+        _v6 = val1.origin_dist
         _x = _v6.data
         buff.write(_get_struct_d().pack(_x))
         _v7 = val1.path
@@ -100,6 +103,12 @@ string data
           _x = _x.encode('utf-8')
           length = len(_x)
         buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+        _v8 = val1.d1
+        _x = _v8.data
+        buff.write(_get_struct_d().pack(_x))
+        _v9 = val1.d2
+        _x = _v9.data
+        buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -120,18 +129,10 @@ string data
       self.limo_infos = []
       for i in range(0, length):
         val1 = summer_project.msg.limo_info()
-        _v8 = val1.ID
+        _v10 = val1.ID
         start = end
         end += 8
-        (_v8.data,) = _get_struct_q().unpack(str[start:end])
-        _v9 = val1.mp_dist
-        start = end
-        end += 8
-        (_v9.data,) = _get_struct_d().unpack(str[start:end])
-        _v10 = val1.origin_dist
-        start = end
-        end += 8
-        (_v10.data,) = _get_struct_d().unpack(str[start:end])
+        (_v10.data,) = _get_struct_q().unpack(str[start:end])
         _v11 = val1.vel
         start = end
         end += 8
@@ -144,16 +145,32 @@ string data
         start = end
         end += 8
         (_v13.data,) = _get_struct_d().unpack(str[start:end])
-        _v14 = val1.path
+        _v14 = val1.mp_dist
+        start = end
+        end += 8
+        (_v14.data,) = _get_struct_d().unpack(str[start:end])
+        _v15 = val1.origin_dist
+        start = end
+        end += 8
+        (_v15.data,) = _get_struct_d().unpack(str[start:end])
+        _v16 = val1.path
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
         start = end
         end += length
         if python3:
-          _v14.data = str[start:end].decode('utf-8', 'rosmsg')
+          _v16.data = str[start:end].decode('utf-8', 'rosmsg')
         else:
-          _v14.data = str[start:end]
+          _v16.data = str[start:end]
+        _v17 = val1.d1
+        start = end
+        end += 8
+        (_v17.data,) = _get_struct_d().unpack(str[start:end])
+        _v18 = val1.d2
+        start = end
+        end += 8
+        (_v18.data,) = _get_struct_d().unpack(str[start:end])
         self.limo_infos.append(val1)
       return self
     except struct.error as e:
@@ -170,31 +187,37 @@ string data
       length = len(self.limo_infos)
       buff.write(_struct_I.pack(length))
       for val1 in self.limo_infos:
-        _v15 = val1.ID
-        _x = _v15.data
-        buff.write(_get_struct_q().pack(_x))
-        _v16 = val1.mp_dist
-        _x = _v16.data
-        buff.write(_get_struct_d().pack(_x))
-        _v17 = val1.origin_dist
-        _x = _v17.data
-        buff.write(_get_struct_d().pack(_x))
-        _v18 = val1.vel
-        _x = _v18.data
-        buff.write(_get_struct_d().pack(_x))
-        _v19 = val1.x
+        _v19 = val1.ID
         _x = _v19.data
-        buff.write(_get_struct_d().pack(_x))
-        _v20 = val1.y
+        buff.write(_get_struct_q().pack(_x))
+        _v20 = val1.vel
         _x = _v20.data
         buff.write(_get_struct_d().pack(_x))
-        _v21 = val1.path
+        _v21 = val1.x
         _x = _v21.data
+        buff.write(_get_struct_d().pack(_x))
+        _v22 = val1.y
+        _x = _v22.data
+        buff.write(_get_struct_d().pack(_x))
+        _v23 = val1.mp_dist
+        _x = _v23.data
+        buff.write(_get_struct_d().pack(_x))
+        _v24 = val1.origin_dist
+        _x = _v24.data
+        buff.write(_get_struct_d().pack(_x))
+        _v25 = val1.path
+        _x = _v25.data
         length = len(_x)
         if python3 or type(_x) == unicode:
           _x = _x.encode('utf-8')
           length = len(_x)
         buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+        _v26 = val1.d1
+        _x = _v26.data
+        buff.write(_get_struct_d().pack(_x))
+        _v27 = val1.d2
+        _x = _v27.data
+        buff.write(_get_struct_d().pack(_x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -216,40 +239,48 @@ string data
       self.limo_infos = []
       for i in range(0, length):
         val1 = summer_project.msg.limo_info()
-        _v22 = val1.ID
+        _v28 = val1.ID
         start = end
         end += 8
-        (_v22.data,) = _get_struct_q().unpack(str[start:end])
-        _v23 = val1.mp_dist
+        (_v28.data,) = _get_struct_q().unpack(str[start:end])
+        _v29 = val1.vel
         start = end
         end += 8
-        (_v23.data,) = _get_struct_d().unpack(str[start:end])
-        _v24 = val1.origin_dist
+        (_v29.data,) = _get_struct_d().unpack(str[start:end])
+        _v30 = val1.x
         start = end
         end += 8
-        (_v24.data,) = _get_struct_d().unpack(str[start:end])
-        _v25 = val1.vel
+        (_v30.data,) = _get_struct_d().unpack(str[start:end])
+        _v31 = val1.y
         start = end
         end += 8
-        (_v25.data,) = _get_struct_d().unpack(str[start:end])
-        _v26 = val1.x
+        (_v31.data,) = _get_struct_d().unpack(str[start:end])
+        _v32 = val1.mp_dist
         start = end
         end += 8
-        (_v26.data,) = _get_struct_d().unpack(str[start:end])
-        _v27 = val1.y
+        (_v32.data,) = _get_struct_d().unpack(str[start:end])
+        _v33 = val1.origin_dist
         start = end
         end += 8
-        (_v27.data,) = _get_struct_d().unpack(str[start:end])
-        _v28 = val1.path
+        (_v33.data,) = _get_struct_d().unpack(str[start:end])
+        _v34 = val1.path
         start = end
         end += 4
         (length,) = _struct_I.unpack(str[start:end])
         start = end
         end += length
         if python3:
-          _v28.data = str[start:end].decode('utf-8', 'rosmsg')
+          _v34.data = str[start:end].decode('utf-8', 'rosmsg')
         else:
-          _v28.data = str[start:end]
+          _v34.data = str[start:end]
+        _v35 = val1.d1
+        start = end
+        end += 8
+        (_v35.data,) = _get_struct_d().unpack(str[start:end])
+        _v36 = val1.d2
+        start = end
+        end += 8
+        (_v36.data,) = _get_struct_d().unpack(str[start:end])
         self.limo_infos.append(val1)
       return self
     except struct.error as e:

@@ -12,16 +12,6 @@
     :initarg :ID
     :type std_msgs-msg:Int64
     :initform (cl:make-instance 'std_msgs-msg:Int64))
-   (mp_dist
-    :reader mp_dist
-    :initarg :mp_dist
-    :type std_msgs-msg:Float64
-    :initform (cl:make-instance 'std_msgs-msg:Float64))
-   (origin_dist
-    :reader origin_dist
-    :initarg :origin_dist
-    :type std_msgs-msg:Float64
-    :initform (cl:make-instance 'std_msgs-msg:Float64))
    (vel
     :reader vel
     :initarg :vel
@@ -37,11 +27,31 @@
     :initarg :y
     :type std_msgs-msg:Float64
     :initform (cl:make-instance 'std_msgs-msg:Float64))
+   (mp_dist
+    :reader mp_dist
+    :initarg :mp_dist
+    :type std_msgs-msg:Float64
+    :initform (cl:make-instance 'std_msgs-msg:Float64))
+   (origin_dist
+    :reader origin_dist
+    :initarg :origin_dist
+    :type std_msgs-msg:Float64
+    :initform (cl:make-instance 'std_msgs-msg:Float64))
    (path
     :reader path
     :initarg :path
     :type std_msgs-msg:String
-    :initform (cl:make-instance 'std_msgs-msg:String)))
+    :initform (cl:make-instance 'std_msgs-msg:String))
+   (d1
+    :reader d1
+    :initarg :d1
+    :type std_msgs-msg:Float64
+    :initform (cl:make-instance 'std_msgs-msg:Float64))
+   (d2
+    :reader d2
+    :initarg :d2
+    :type std_msgs-msg:Float64
+    :initform (cl:make-instance 'std_msgs-msg:Float64)))
 )
 
 (cl:defclass limo_info (<limo_info>)
@@ -56,16 +66,6 @@
 (cl:defmethod ID-val ((m <limo_info>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:ID-val is deprecated.  Use summer_project-msg:ID instead.")
   (ID m))
-
-(cl:ensure-generic-function 'mp_dist-val :lambda-list '(m))
-(cl:defmethod mp_dist-val ((m <limo_info>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:mp_dist-val is deprecated.  Use summer_project-msg:mp_dist instead.")
-  (mp_dist m))
-
-(cl:ensure-generic-function 'origin_dist-val :lambda-list '(m))
-(cl:defmethod origin_dist-val ((m <limo_info>))
-  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:origin_dist-val is deprecated.  Use summer_project-msg:origin_dist instead.")
-  (origin_dist m))
 
 (cl:ensure-generic-function 'vel-val :lambda-list '(m))
 (cl:defmethod vel-val ((m <limo_info>))
@@ -82,29 +82,53 @@
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:y-val is deprecated.  Use summer_project-msg:y instead.")
   (y m))
 
+(cl:ensure-generic-function 'mp_dist-val :lambda-list '(m))
+(cl:defmethod mp_dist-val ((m <limo_info>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:mp_dist-val is deprecated.  Use summer_project-msg:mp_dist instead.")
+  (mp_dist m))
+
+(cl:ensure-generic-function 'origin_dist-val :lambda-list '(m))
+(cl:defmethod origin_dist-val ((m <limo_info>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:origin_dist-val is deprecated.  Use summer_project-msg:origin_dist instead.")
+  (origin_dist m))
+
 (cl:ensure-generic-function 'path-val :lambda-list '(m))
 (cl:defmethod path-val ((m <limo_info>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:path-val is deprecated.  Use summer_project-msg:path instead.")
   (path m))
+
+(cl:ensure-generic-function 'd1-val :lambda-list '(m))
+(cl:defmethod d1-val ((m <limo_info>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:d1-val is deprecated.  Use summer_project-msg:d1 instead.")
+  (d1 m))
+
+(cl:ensure-generic-function 'd2-val :lambda-list '(m))
+(cl:defmethod d2-val ((m <limo_info>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader summer_project-msg:d2-val is deprecated.  Use summer_project-msg:d2 instead.")
+  (d2 m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <limo_info>) ostream)
   "Serializes a message object of type '<limo_info>"
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'ID) ostream)
-  (roslisp-msg-protocol:serialize (cl:slot-value msg 'mp_dist) ostream)
-  (roslisp-msg-protocol:serialize (cl:slot-value msg 'origin_dist) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'vel) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'x) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'y) ostream)
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'mp_dist) ostream)
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'origin_dist) ostream)
   (roslisp-msg-protocol:serialize (cl:slot-value msg 'path) ostream)
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'd1) ostream)
+  (roslisp-msg-protocol:serialize (cl:slot-value msg 'd2) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <limo_info>) istream)
   "Deserializes a message object of type '<limo_info>"
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'ID) istream)
-  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'mp_dist) istream)
-  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'origin_dist) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'vel) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'x) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'y) istream)
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'mp_dist) istream)
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'origin_dist) istream)
   (roslisp-msg-protocol:deserialize (cl:slot-value msg 'path) istream)
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'd1) istream)
+  (roslisp-msg-protocol:deserialize (cl:slot-value msg 'd2) istream)
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<limo_info>)))
@@ -115,34 +139,38 @@
   "summer_project/limo_info")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<limo_info>)))
   "Returns md5sum for a message object of type '<limo_info>"
-  "a1e7bd1dfe61d3c79d2fdc665d34421b")
+  "24e962fd472c2ad4988156ac52134873")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'limo_info)))
   "Returns md5sum for a message object of type 'limo_info"
-  "a1e7bd1dfe61d3c79d2fdc665d34421b")
+  "24e962fd472c2ad4988156ac52134873")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<limo_info>)))
   "Returns full string definition for message of type '<limo_info>"
-  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/Float64 vel~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/String path~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%================================================================================~%MSG: std_msgs/String~%string data~%~%~%"))
+  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 vel~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/String path~%~%std_msgs/Float64 d1~%std_msgs/Float64 d2~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%================================================================================~%MSG: std_msgs/String~%string data~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'limo_info)))
   "Returns full string definition for message of type 'limo_info"
-  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/Float64 vel~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/String path~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%================================================================================~%MSG: std_msgs/String~%string data~%~%~%"))
+  (cl:format cl:nil "std_msgs/Int64 ID~%std_msgs/Float64 vel~%std_msgs/Float64 x~%std_msgs/Float64 y~%std_msgs/Float64 mp_dist~%std_msgs/Float64 origin_dist~%std_msgs/String path~%~%std_msgs/Float64 d1~%std_msgs/Float64 d2~%~%================================================================================~%MSG: std_msgs/Int64~%int64 data~%================================================================================~%MSG: std_msgs/Float64~%float64 data~%================================================================================~%MSG: std_msgs/String~%string data~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <limo_info>))
   (cl:+ 0
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'ID))
-     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'mp_dist))
-     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'origin_dist))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'vel))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'x))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'y))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'mp_dist))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'origin_dist))
      (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'path))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'd1))
+     (roslisp-msg-protocol:serialization-length (cl:slot-value msg 'd2))
 ))
 (cl:defmethod roslisp-msg-protocol:ros-message-to-list ((msg <limo_info>))
   "Converts a ROS message object to a list"
   (cl:list 'limo_info
     (cl:cons ':ID (ID msg))
-    (cl:cons ':mp_dist (mp_dist msg))
-    (cl:cons ':origin_dist (origin_dist msg))
     (cl:cons ':vel (vel msg))
     (cl:cons ':x (x msg))
     (cl:cons ':y (y msg))
+    (cl:cons ':mp_dist (mp_dist msg))
+    (cl:cons ':origin_dist (origin_dist msg))
     (cl:cons ':path (path msg))
+    (cl:cons ':d1 (d1 msg))
+    (cl:cons ':d2 (d2 msg))
 ))

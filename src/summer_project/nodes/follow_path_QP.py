@@ -135,7 +135,8 @@ left_pid = PID(left_kp,left_ki,left_kd, setpoint=0)
 right_pid = PID(right_kp,right_ki,right_kd, setpoint=0)
 
 MAX_STEER = 0.99#np.pi/8
-
+MAX_SPEED = 0.35 # 1
+MIN_SPEED = - MAX_SPEED
 r = 1
 # bot_pos = [0,0]
 class project_node:
@@ -155,11 +156,13 @@ class project_node:
         self.start_stop_sub = rospy.Subscriber(start_stop_topic, Bool, self.start_stop_callb, queue_size=1)
         self.task_sub = rospy.Subscriber(ns+ task_topic,String, self.task_callb, queue_size=10)
         self.mocap_sub = rospy.Subscriber(mocap_topic_name, PoseStamped, self.mocap_callb, queue_size=10)
+        self.PATH_READY = False
     def mocap_callb(self, pose_st_msg):
         self.x = -pose_st_msg.pose.position.x
         self.y = -pose_st_msg.pose.position.y
     def task_callb(self, task_msg):
         global TST_PATH, ST_PT, END_PT, path_string
+        self.PATH_READY = True
         setup_path(task_msg.data)
     def start_stop_callb(self, b_msg):
         self.active = b_msg.data
@@ -174,7 +177,7 @@ class project_node:
         dt = self.u_t - self.u_t_last
         self.u_t_last = self.u_t
         self.v += dt * self.u
-        self.v = min(1, max(0, self.v))
+        self.v = min(MAX_SPEED, max(MIN_SPEED, self.v))
         # self.a = qp_msg.a.data
 
 if __name__ == '__main__':
@@ -192,6 +195,8 @@ if __name__ == '__main__':
     vd = 0
     a = True
     u = 0
+    while not node.PATH_READY:
+        rospy.Rate(100)
     while not rospy.is_shutdown():
         bot_pos = [node.x, node.y]
         cur_t = rospy.get_time()

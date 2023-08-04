@@ -79,8 +79,8 @@ class project_node:
         pos = [-p.x,-p.y]
         path = self.path_string
         # rospy.loginfo("{}\t{}".format(p.x,p.y))
-        # PROJ_NODE_DATA.x.data = - p.x # TO BE REPLACED WITH SOMEHTING BETTER!!! #TODO
-        # PROJ_NODE_DATA.y.data = - p.y
+        PROJ_NODE_DATA.x.data = - p.x # TO BE REPLACED WITH SOMEHTING BETTER!!! #TODO
+        PROJ_NODE_DATA.y.data = - p.y
         # PROJ_NODE_DATA.x = merging_dst(pos, path)
         lat, mp_d, dist, stop_bool, turn_sect = signed_dist(pos, path, v=PROJ_NODE_DATA.vel.data)
         PROJ_NODE_DATA.mp_dist.data = mp_d
