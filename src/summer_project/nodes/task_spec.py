@@ -7,7 +7,7 @@ task_topic = '/task'
 
 tasks = {
     789: "SA",
-    770: "SB"
+    770: "LB"
     # 155: "LC"#,
     # 799: "RD"
 }

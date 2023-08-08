@@ -104,14 +104,14 @@ start_stop_topic = '/start_stop'
 
 mocap_topic_name = '/vrpn_client_node' + ns + '/pose'
 
-
+v_setpoint_topic = '/v_setpoint'
 
 PROJ_NODE_DATA = limo_info()#Float64MultiArray()
 PROJ_NODE_DATA.ID.data = int(ns[-3:])
 
 
 #PID stuff
-v = 0.6
+v = 0#.6
 
 right_kp = 0.002
 right_ki = 0.00020
@@ -135,8 +135,8 @@ left_pid = PID(left_kp,left_ki,left_kd, setpoint=0)
 right_pid = PID(right_kp,right_ki,right_kd, setpoint=0)
 
 MAX_STEER = 0.99#np.pi/8
-MAX_SPEED = 0.35 # 1
-MIN_SPEED = - MAX_SPEED
+MAX_SPEED = 0.8 if "789" in ns else 1
+MIN_SPEED = 0#- MAX_SPEED
 r = 1
 # bot_pos = [0,0]
 class project_node:
@@ -145,11 +145,11 @@ class project_node:
         self.y = 0
 
         self.u = 0
-        self.v = 0
+        self.v = 0#1 if "770" in ns else 0
         self.active = False
         self.u_t = rospy.get_time()
         self.u_t_last = self.u_t
-
+        self.v_set_pub = rospy.Publisher(ns + v_setpoint_topic, Float64, queue_size=1)
         self.info_sub = rospy.Subscriber(ns + proj_topic_name, limo_info, self.info_callb, queue_size=10)
         self.QP_soln_sub = rospy.Subscriber(ns + QP_solition_topic_name, QP_solution, self.QP_soln_callb, queue_size=10)
         self.error_pub = rospy.Publisher(ns + error_topic, Float64, queue_size=10)
@@ -157,6 +157,7 @@ class project_node:
         self.task_sub = rospy.Subscriber(ns+ task_topic,String, self.task_callb, queue_size=10)
         self.mocap_sub = rospy.Subscriber(mocap_topic_name, PoseStamped, self.mocap_callb, queue_size=10)
         self.PATH_READY = False
+        # self.u = 0
     def mocap_callb(self, pose_st_msg):
         self.x = -pose_st_msg.pose.position.x
         self.y = -pose_st_msg.pose.position.y
@@ -172,12 +173,14 @@ class project_node:
     def cmd_vel(self, v, th):
         limo.SetMotionCommand(v, 0, 0, th)
     def QP_soln_callb(self, qp_msg):
+        # if not self.active:
+        #     return
         self.u = qp_msg.u.data
-        self.u_t = rospy.get_time()
-        dt = self.u_t - self.u_t_last
-        self.u_t_last = self.u_t
-        self.v += dt * self.u
-        self.v = min(MAX_SPEED, max(MIN_SPEED, self.v))
+        # self.u_t = rospy.get_time()
+        # dt = self.u_t - self.u_t_last
+        # self.u_t_last = self.u_t
+        # self.v += dt * self.u# * 0.2
+        # self.v = min(MAX_SPEED, max(MIN_SPEED, self.v))
         # self.a = qp_msg.a.data
 
 if __name__ == '__main__':
@@ -211,8 +214,6 @@ if __name__ == '__main__':
         smaller = min(st_d, end_d)
         ratio = smaller / larger
         # v = min(1, max(0.2, ratio))#      V RAMPING
-
-        v = node.v
         # e, mp_d, should_stop, gain_string = signed_dist(bot_pos, path_string)
         e, mp_d, path_dist, should_stop, gain_string = signed_dist(bot_pos, path_string, v=PROJ_NODE_DATA.vel.data)
         # e, mp_d, should_stop, gain_string = signed_dist(TST_PATH, bot_pos)
@@ -224,6 +225,12 @@ if __name__ == '__main__':
 
         if node.active:
             a = True
+            node.v += node.u * dt
+            node.v_set_pub.publish(Float64(node.v))
+            # node.v = min()
+
+            node.v = min(MAX_SPEED, max(MIN_SPEED, node.v))
+            v = node.v
             # v = node.v
             if left_pid._integral  > 50:
                 left_pid.reset()#_integral = 0 #= PID(curved_kp,curved_ki,curved_kd, setpoint=0)
